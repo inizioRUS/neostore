@@ -8,5 +8,4 @@ public class BebrikiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BebrikiApplication.class, args);
 	}
-
 }

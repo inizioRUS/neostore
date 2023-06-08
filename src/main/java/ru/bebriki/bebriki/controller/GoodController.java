@@ -10,11 +10,12 @@ import java.util.List;
 
 import ru.bebriki.bebriki.service.GoodService;
 
+import java.util.List;
+
 @RestController("/goods")
 public class GoodController {
     @Autowired
     private GoodService service;
-
     @PostMapping("/addGood")
     public Good addGood(@RequestBody Good good){
         return service.saveGood(good);
@@ -34,7 +35,6 @@ public class GoodController {
     public Good findGoodById(@PathVariable int id){
         return service.getGoodById(id);
     }
-
     @GetMapping("/goods/{name}")
     public List<Good> findGoodsByName(@PathVariable String name){
         return service.getGoodsByName(name);

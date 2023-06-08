@@ -3,6 +3,9 @@ package ru.bebriki.bebriki.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+import java.util.Set;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -28,4 +31,7 @@ public class Good {
     private String imageURL;
     @Column(name = "amount")
     private Integer amount;
+    @ManyToMany
+    @JoinTable(name = "workers", joinColumns = @JoinColumn(name = "id"))
+    List<Worker> wishedBy;
 }
