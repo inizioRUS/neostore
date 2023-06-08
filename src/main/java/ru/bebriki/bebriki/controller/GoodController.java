@@ -24,10 +24,6 @@ import ru.bebriki.bebriki.service.GoodService;
 public class GoodController {
     @Autowired
     private GoodService service;
-    public GoodController(final GoodService productService) {
-        this.service = productService;
-    }
-
     @PostMapping
     //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> create(@ModelAttribute CreateGoodWrapperDto dto) {
