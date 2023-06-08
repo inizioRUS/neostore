@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.bebriki.bebriki.Errors.GoodNotFoundException;
 import ru.bebriki.bebriki.dtos.CreateGoodWrapperDto;
 import ru.bebriki.bebriki.dtos.UpdateGoodDto;
 import ru.bebriki.bebriki.models.Good;
@@ -95,11 +96,11 @@ public class GoodService {
 
         return response;
     }
-    public GoodResponse update(int id, UpdateGoodDto dto) {
+    public GoodResponse update(int id, UpdateGoodDto dto) throws GoodNotFoundException {
         Optional<Good> productOptional = repository.findById(id);
 
         if (productOptional.isEmpty())
-            return null;
+            throw new GoodNotFoundException("this no such good");
 
         Good product = productOptional.orElseThrow();
 

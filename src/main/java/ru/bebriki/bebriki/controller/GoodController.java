@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.bebriki.bebriki.Errors.GoodNotFoundException;
 import ru.bebriki.bebriki.dtos.CreateGoodWrapperDto;
 import ru.bebriki.bebriki.dtos.UpdateGoodDto;
 import ru.bebriki.bebriki.models.Good;
@@ -91,7 +92,7 @@ public class GoodController {
     //   @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> update(
             @PathVariable int id,
-            @RequestBody UpdateGoodDto dto) {
+            @RequestBody UpdateGoodDto dto) throws GoodNotFoundException {
 
         GoodResponse pizza = service.update(id, dto);
 
