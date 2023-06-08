@@ -4,6 +4,7 @@ import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.bebriki.bebriki.Errors.AchievementNotFoundException;
 import ru.bebriki.bebriki.models.Achievement;
 import ru.bebriki.bebriki.repositories.AchievementRepository;
 import ru.bebriki.bebriki.service.AchievementService;
@@ -11,14 +12,15 @@ import ru.bebriki.bebriki.service.AchievementServiceImpl;
 
 import java.util.List;
 
-@RestController("/achievements")
+@RestController
+@RequestMapping("/achievements")
 public class AchievementController {
 
     @Autowired
     AchievementService achievementService;
 
     @GetMapping("/achievement/{id}")
-    public Achievement getAchievementById(@PathVariable("id") int id) {
+    public Achievement getAchievementById(@PathVariable("id") int id) throws AchievementNotFoundException {
         return achievementService.getAchievementById(id);
     }
 
@@ -28,7 +30,7 @@ public class AchievementController {
     }
 
     @PutMapping("achievement/{id}")
-    public void updateAchievementById(@PathVariable("id") int id, @RequestBody Achievement achievement) {
+    public void updateAchievementById(@PathVariable("id") int id, @RequestBody Achievement achievement) throws AchievementNotFoundException {
         achievementService.updateAchievementById(id, achievement);
     }
 
