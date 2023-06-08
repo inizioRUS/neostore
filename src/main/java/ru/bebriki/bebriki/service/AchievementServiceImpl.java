@@ -65,6 +65,7 @@ public class AchievementServiceImpl implements AchievementService {
     @Override
     public void deleteAchievementById(int id) {
         achievementRepository.deleteById(id);
+        System.out.println("it was successful deleted");
     }
 
 }

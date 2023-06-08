@@ -13,33 +13,33 @@ import ru.bebriki.bebriki.service.AchievementServiceImpl;
 import java.util.List;
 
 @RestController
-@RequestMapping("/achievements")
 public class AchievementController {
 
     @Autowired
     private AchievementService achievementService;
 
-    @GetMapping("/achievement/{id}")
+    @GetMapping("/achievements/{id}")
     public Achievement getAchievementById(@PathVariable("id") int id) throws AchievementNotFoundException {
         return achievementService.getAchievementById(id);
     }
 
-    @GetMapping()
+    @GetMapping("/achievements")
     public List<Achievement> getAllAchievements() {
         return achievementService.getAllAchievements();
     }
 
-    @PutMapping("achievement/{id}")
+    @PutMapping("/achievements/{id}")
     public void updateAchievementById(@PathVariable("id") int id, @RequestBody Achievement achievement) throws AchievementNotFoundException {
         achievementService.updateAchievementById(id, achievement);
     }
 
-    @PostMapping()
+    @PostMapping("/achievements")
     public Achievement createAchievement(@RequestBody Achievement achievement) {
+        System.out.println("create method");
         return achievementService.createAchievement(achievement);
     }
 
-    @DeleteMapping("/achievement/{id}")
+    @DeleteMapping("/achievements/{id}")
     public void deleteAchievementById(@PathVariable("id") int id) {
         achievementService.deleteAchievementById(id);
     }
