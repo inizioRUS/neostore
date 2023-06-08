@@ -17,7 +17,7 @@ import java.util.List;
 public class AchievementController {
 
     @Autowired
-    AchievementService achievementService;
+    private AchievementService achievementService;
 
     @GetMapping("/achievement/{id}")
     public Achievement getAchievementById(@PathVariable("id") int id) throws AchievementNotFoundException {

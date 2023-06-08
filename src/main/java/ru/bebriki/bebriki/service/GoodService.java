@@ -26,7 +26,7 @@ public class GoodService {
     @Value("${filesystem.url}")
     private String fileSystemBaseUrl;
     @Autowired
-    private GoodRepository goodRepository;
+    GoodRepository goodRepository;
 
     public Good saveGood(Good good){
         return goodRepository.save(good);
