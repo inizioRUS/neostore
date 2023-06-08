@@ -23,6 +23,8 @@ public class Worker {
     private String surname;
     @Column(name = "secondName")
     private String secondName;
+    @Column(name = "login")
+    private String login;
     @Column(name = "vacancyId")
     private Integer vacancyId;
     @Column(name = "positionId")
