@@ -8,10 +8,12 @@ import ru.bebriki.bebriki.models.Good;
 
 import java.util.List;
 
-@RestController
+import ru.bebriki.bebriki.service.GoodService;
+
+@RestController("/goods")
 public class GoodController {
     @Autowired
-    private GoodService GoodService;
+    private GoodService service;
 
     @PostMapping("/addGood")
     public Good addGood(@RequestBody Good good){
