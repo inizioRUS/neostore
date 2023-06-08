@@ -3,6 +3,9 @@ package ru.bebriki.bebriki.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+import java.util.Set;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -34,5 +37,7 @@ public class Worker {
     private String password;
     @Column(name = "role")
     private String role;
-
+    @ManyToMany
+    @JoinTable(name = "goods", joinColumns = @JoinColumn(name = "id"))
+    List<Good> wishedGoods;
 }

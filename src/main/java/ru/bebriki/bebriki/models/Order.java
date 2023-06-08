@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Data
@@ -20,4 +21,7 @@ public class Order {
     private Integer workerId;
     @Column(name = "date")
     private LocalDateTime date;
+    @OneToMany(targetEntity = OrderItem.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "orderItemId", referencedColumnName = "id")
+    private List<OrderItem> items;
 }

@@ -16,11 +16,12 @@ public class Achievement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "workerId")
-    private Integer workerId;
-    @Column(name = "achievementId")
-    private String achievementId;
+    @Column(name = "title")
+    private String title;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "imageURL")
+    private String imageURL;
     @Column(name = "date")
     private LocalDateTime date;
-
 }
