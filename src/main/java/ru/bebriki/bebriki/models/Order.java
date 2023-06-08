@@ -16,7 +16,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "title")
+    @Column(name = "workerId")
     private Integer workerId;
     @Column(name = "date")
     private LocalDateTime date;
