@@ -26,26 +26,26 @@ public class GoodService {
     @Value("${filesystem.url}")
     private String fileSystemBaseUrl;
     @Autowired
-    private GoodRepository repository;
+    private GoodRepository goodRepository;
 
     public Good saveGood(Good good){
-        return repository.save(good);
+        return goodRepository.save(good);
     }
 
     public List<Good> saveGoods(List<Good> goods){
-        return repository.saveAll(goods);
+        return goodRepository.saveAll(goods);
     }
     public List<Good> getAllGoods(){
-        return repository.findAll();
+        return goodRepository.findAll();
     }
     public List<GoodResponse> findAll() {
-        return repository.findAll(Sort.by(Sort.Direction.ASC, "title"))
+        return goodRepository.findAll(Sort.by(Sort.Direction.ASC, "title"))
                 .stream()
                 .map(GoodResponse::cast)
                 .toList();
     }
     public GoodResponse findById(int id) {
-        Optional<Good> product = repository.findById(id);
+        Optional<Good> product = goodRepository.findById(id);
 
         if (product.isEmpty())
             return null;
@@ -53,15 +53,15 @@ public class GoodService {
         return GoodResponse.cast(product.orElseThrow());
     }
     public List<GoodResponse> findByTitle(String title) {
-        return repository.findByTitle(title).stream().map(GoodResponse::cast).toList();
+        return goodRepository.findByTitle(title).stream().map(GoodResponse::cast).toList();
     }
     public List<CategoryItemResponse> findGoodsCategories() {
-        return repository.findProductCategories();
+        return goodRepository.findProductCategories();
     }
     public GoodResponse create(CreateGoodWrapperDto dto) {
         UploadFileResponse response = uploadPictureRequest(dto.getTitle(), dto.getFile());
 
-        Good product = repository.save(Good.builder()
+        Good product = goodRepository.save(Good.builder()
                 .title(dto.getTitle())
                 .categoryId(dto.getCategoryId())
                 .price(dto.getPrice())
@@ -97,7 +97,7 @@ public class GoodService {
         return response;
     }
     public GoodResponse update(int id, UpdateGoodDto dto) throws GoodNotFoundException {
-        Optional<Good> productOptional = repository.findById(id);
+        Optional<Good> productOptional = goodRepository.findById(id);
 
         if (productOptional.isEmpty())
             throw new GoodNotFoundException("this no such good");
@@ -105,12 +105,12 @@ public class GoodService {
         Good product = productOptional.orElseThrow();
 
         product.setPrice(dto.getPrice());
-        product = repository.save(product);
+        product = goodRepository.save(product);
 
         return GoodResponse.cast(product);
     }
     public GoodResponse updatePhotoById(int id, MultipartFile file) {
-        Optional<Good> productOptional = repository.findById(id);
+        Optional<Good> productOptional = goodRepository.findById(id);
 
         if (productOptional.isEmpty())
             return null;
@@ -120,24 +120,24 @@ public class GoodService {
         UploadFileResponse response = uploadPictureRequest(product.getTitle(), file);
 
         product.setImageURL(response.getUrl());
-        product = repository.save(product);
+        product = goodRepository.save(product);
 
         return GoodResponse.cast(product);
     }
     public GoodResponse deleteById(int id) {
-        Optional<Good> product = repository.findById(id);
+        Optional<Good> product = goodRepository.findById(id);
 
         if (product.isEmpty())
             return null;
 
-        repository.deleteById(id);
+        goodRepository.deleteById(id);
 
         return GoodResponse.cast(product.get());
     }
     public List<GoodResponse> deleteByTitle(String title) {
-        List<Good> products = repository.findByTitle(title);
+        List<Good> products = goodRepository.findByTitle(title);
 
-        repository.deleteByTitle(title);
+        goodRepository.deleteByTitle(title);
 
         return products.stream().map(GoodResponse::cast).toList();
     }
