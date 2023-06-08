@@ -2,8 +2,6 @@ package ru.bebriki.bebriki.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.bebriki.bebriki.Errors.GoodNotFoundException;
@@ -17,41 +15,42 @@ import ru.bebriki.bebriki.responses.CategoryItemResponse;
 import ru.bebriki.bebriki.responses.ErrorMessageResponce;
 import ru.bebriki.bebriki.responses.GoodResponse;
 import ru.bebriki.bebriki.service.GoodService;
+import ru.bebriki.bebriki.service.GoodServiceImpl;
 
 @RestController
 @RequestMapping("/goods")
 @CrossOrigin
 public class GoodController {
     @Autowired
-    private GoodService service;
+    private GoodService goodService;
     @PostMapping
     //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> create(@ModelAttribute CreateGoodWrapperDto dto) {
-        if (service.findByTitle(dto.getTitle()).size() != 0)
+        if (goodService.findByTitle(dto.getTitle()).size() != 0)
             return ResponseEntity.status(400).body(new ErrorMessageResponce("Product with that title already exist"));
 
-        return ResponseEntity.status(201).body(service.create(dto));
+        return ResponseEntity.status(201).body(goodService.create(dto));
     }
     @PostMapping("/addGood")
     public String add(@RequestBody Good product ){
-        service.saveGood(product);
+        goodService.saveGood(product);
         return "New product is added";
     }
 
     @PostMapping("/addGoods")
     public List<Good> addGoods(@RequestBody List<Good> goods){
-        return service.saveGoods(goods);
+        return goodService.saveGoods(goods);
     }
 
 
     @GetMapping("/getAllGoods")
     public ResponseEntity<List<GoodResponse>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+        return ResponseEntity.ok(goodService.findAll());
     }
 
     @GetMapping("/goodById/{id}")
     public ResponseEntity<?> findById(@PathVariable int id) {
-        GoodResponse good = service.findById(id);
+        GoodResponse good = goodService.findById(id);
 
         if (good == null)
             return ResponseEntity.status(404).body(new ErrorMessageResponce("Product with this id is not found"));
@@ -62,7 +61,7 @@ public class GoodController {
 
     @GetMapping("/{title}")
     public ResponseEntity<?> findByTitle(@RequestParam String title) {
-        List<GoodResponse> goods = service.findByTitle(title);
+        List<GoodResponse> goods = goodService.findByTitle(title);
 
         if (goods.size() == 0)
             return ResponseEntity.status(404).body(new ErrorMessageResponce("Product with this title is not found"));
@@ -70,9 +69,9 @@ public class GoodController {
         return ResponseEntity.ok(goods);
     }
     @GetMapping("/categories")
-    //   @PreAuthorize("hasRole('USER') or hasRole('EMPLOYEE') or hasRole('ADMIN')")
+//       @PreAuthorize("hasRole('USER') or hasRole('EMPLOYEE') or hasRole('ADMIN')")
     public ResponseEntity<?> findPizzaCategories() {
-        List<CategoryItemResponse> categories = service.findGoodsCategories();
+        List<CategoryItemResponse> categories = goodService.findGoodsCategories();
 
         if (categories.size() == 0)
             return ResponseEntity.status(404).body(new ErrorMessageResponce("Product with this category is not found"));
@@ -80,13 +79,13 @@ public class GoodController {
         return ResponseEntity.ok(categories);
     }
 
-    @PatchMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     //   @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> update(
             @PathVariable int id,
             @RequestBody UpdateGoodDto dto) throws GoodNotFoundException {
 
-        GoodResponse pizza = service.update(id, dto);
+        GoodResponse pizza = goodService.update(id, dto);
 
         if (pizza == null)
             return ResponseEntity.status(404).body(new ErrorMessageResponce("Product with this id is not found"));
@@ -99,7 +98,7 @@ public class GoodController {
             @PathVariable int id,
             @RequestParam("file") MultipartFile file) {
 
-        GoodResponse good = service.updatePhotoById(id, file);
+        GoodResponse good = goodService.updatePhotoById(id, file);
 
         if (good == null)
             return ResponseEntity.status(404).body(new ErrorMessageResponce("product with this id is not found"));
@@ -110,7 +109,7 @@ public class GoodController {
     @DeleteMapping("{id}")
     //   @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> delete(@PathVariable int id) {
-        GoodResponse pizza = service.deleteById(id);
+        GoodResponse pizza = goodService.deleteById(id);
 
         if (pizza == null)
             return ResponseEntity.status(404).body(new ErrorMessageResponce("product with this id is not found"));
@@ -120,7 +119,7 @@ public class GoodController {
     @DeleteMapping
     //   @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteByTitle(@RequestParam String title) {
-        List<GoodResponse> pizzas = service.deleteByTitle(title);
+        List<GoodResponse> pizzas = goodService.deleteByTitle(title);
 
         if (pizzas.size() == 0)
             return ResponseEntity.status(404).body(new ErrorMessageResponce("Pizza(s) with this title not found"));
