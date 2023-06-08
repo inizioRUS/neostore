@@ -2,6 +2,7 @@ package ru.bebriki.bebriki.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.bebriki.bebriki.Errors.AchievementNotFoundException;
 import ru.bebriki.bebriki.models.Achievement;
 import ru.bebriki.bebriki.repositories.AchievementRepository;
 
@@ -16,7 +17,7 @@ public class AchievementServiceImpl implements AchievementService {
     AchievementRepository achievementRepository;
 
     @Override
-    public Achievement getAchievementById(int id) {
+    public Achievement getAchievementById(int id) throws AchievementNotFoundException {
 
         Optional<Achievement> achievement = achievementRepository.findById(id);
 
@@ -34,7 +35,7 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     @Override
-    public void updateAchievementById(int id, Achievement achievement) {
+    public void updateAchievementById(int id, Achievement achievement) throws AchievementNotFoundException {
 
         Achievement achievementDB = getAchievementById(id);
 
