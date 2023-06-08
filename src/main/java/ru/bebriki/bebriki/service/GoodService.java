@@ -11,16 +11,27 @@ import ru.bebriki.bebriki.responses.GoodResponse;
 import java.util.List;
 
 public interface GoodService {
-    public Good saveGood(Good good);
-    public List<Good> saveGoods(List<Good> goods);
-    public List<Good> getAllGoods();
-    public List<GoodResponse> findAll();
-    public GoodResponse findById(int id);
-    public List<GoodResponse> findByTitle(String title);
-    public List<CategoryItemResponse> findGoodsCategories();
-    public GoodResponse create(CreateGoodWrapperDto dto);
-    public GoodResponse update(int id, UpdateGoodDto dto) throws GoodNotFoundException;
-    public GoodResponse updatePhotoById(int id, MultipartFile file);
-    public GoodResponse deleteById(int id);
-    public List<GoodResponse> deleteByTitle(String title);
+    Good saveGood(Good good);
+
+    List<Good> saveGoods(List<Good> goods);
+
+    List<Good> getAllGoods();
+
+    List<GoodResponse> findAll();
+
+    GoodResponse findById(int id);
+
+    List<GoodResponse> findByTitle(String title);
+
+//    List<CategoryItemResponse> findGoodsCategories();
+
+    GoodResponse create(CreateGoodWrapperDto dto);
+
+    GoodResponse update(int id, UpdateGoodDto dto) throws GoodNotFoundException;
+
+    GoodResponse updatePhotoById(int id);
+
+    GoodResponse deleteById(int id);
+
+    List<GoodResponse> deleteByTitle(String title);
 }

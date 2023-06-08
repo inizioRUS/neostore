@@ -3,7 +3,6 @@ package ru.bebriki.bebriki.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.bebriki.bebriki.Errors.GoodNotFoundException;
 import ru.bebriki.bebriki.dtos.CreateGoodWrapperDto;
 import ru.bebriki.bebriki.dtos.UpdateGoodDto;
@@ -15,7 +14,6 @@ import ru.bebriki.bebriki.responses.CategoryItemResponse;
 import ru.bebriki.bebriki.responses.ErrorMessageResponce;
 import ru.bebriki.bebriki.responses.GoodResponse;
 import ru.bebriki.bebriki.service.GoodService;
-import ru.bebriki.bebriki.service.GoodServiceImpl;
 
 @RestController
 @RequestMapping("/goods")
@@ -23,14 +21,14 @@ import ru.bebriki.bebriki.service.GoodServiceImpl;
 public class GoodController {
     @Autowired
     private GoodService goodService;
-    @PostMapping
+//    @PostMapping
     //@PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> create(@ModelAttribute CreateGoodWrapperDto dto) {
-        if (goodService.findByTitle(dto.getTitle()).size() != 0)
-            return ResponseEntity.status(400).body(new ErrorMessageResponce("Product with that title already exist"));
-
-        return ResponseEntity.status(201).body(goodService.create(dto));
-    }
+//    public ResponseEntity<?> create(@ModelAttribute CreateGoodWrapperDto dto) {
+//        if (goodService.findByTitle(dto.getTitle()).size() != 0)
+//            return ResponseEntity.status(400).body(new ErrorMessageResponce("Product with that title already exist"));
+//
+//        return ResponseEntity.status(201).body(goodService.create(dto));
+//    }
     @PostMapping("/addGood")
     public String add(@RequestBody Good product ){
         goodService.saveGood(product);
@@ -68,16 +66,16 @@ public class GoodController {
 
         return ResponseEntity.ok(goods);
     }
-    @GetMapping("/categories")
-//       @PreAuthorize("hasRole('USER') or hasRole('EMPLOYEE') or hasRole('ADMIN')")
-    public ResponseEntity<?> findPizzaCategories() {
-        List<CategoryItemResponse> categories = goodService.findGoodsCategories();
-
-        if (categories.size() == 0)
-            return ResponseEntity.status(404).body(new ErrorMessageResponce("Product with this category is not found"));
-
-        return ResponseEntity.ok(categories);
-    }
+//    @GetMapping("/categories")
+////       @PreAuthorize("hasRole('USER') or hasRole('EMPLOYEE') or hasRole('ADMIN')")
+//    public ResponseEntity<?> findPizzaCategories() {
+//        List<CategoryItemResponse> categories = goodService.findGoodsCategories();
+//
+//        if (categories.size() == 0)
+//            return ResponseEntity.status(404).body(new ErrorMessageResponce("Product with this category is not found"));
+//
+//        return ResponseEntity.ok(categories);
+//    }
 
     @PutMapping("/update/{id}")
     //   @PreAuthorize("hasRole('ADMIN')")
@@ -92,19 +90,19 @@ public class GoodController {
 
         return ResponseEntity.ok(pizza);
     }
-    @PatchMapping("{id}/photo")
-    //   @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> updatePhoto(
-            @PathVariable int id,
-            @RequestParam("file") MultipartFile file) {
-
-        GoodResponse good = goodService.updatePhotoById(id, file);
-
-        if (good == null)
-            return ResponseEntity.status(404).body(new ErrorMessageResponce("product with this id is not found"));
-
-        return ResponseEntity.ok(good);
-    }
+//    @PutMapping("{id}/photo")
+//    //   @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> updatePhoto(
+//            @PathVariable int id,
+//            @RequestParam("file") MultipartFile file) {
+//
+//        GoodResponse good = goodService.updatePhotoById(id, file);
+//
+//        if (good == null)
+//            return ResponseEntity.status(404).body(new ErrorMessageResponce("product with this id is not found"));
+//
+//        return ResponseEntity.ok(good);
+//    }
 
     @DeleteMapping("{id}")
     //   @PreAuthorize("hasRole('ADMIN')")

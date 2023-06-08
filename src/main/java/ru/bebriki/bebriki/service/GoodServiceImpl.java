@@ -24,9 +24,9 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
-public class GoodServiceImpl implements GoodService {
-    @Value("${filesystem.url}")
-    private String fileSystemBaseUrl;
+public class GoodServiceImpl implements GoodService{
+//    @Value("${filesystem.url}")
+//    private String fileSystemBaseUrl;
 
     @Autowired
     private GoodRepository goodRepository;
@@ -69,15 +69,13 @@ public class GoodServiceImpl implements GoodService {
         return goodRepository.findByTitle(title).stream().map(GoodResponse::cast).toList();
     }
 
-    @Override
-    public List<CategoryItemResponse> findGoodsCategories() {
-        return goodRepository.findProductCategories();
-    }
+//    @Override
+//    public List<CategoryItemResponse> findGoodsCategories() {
+//        return goodRepository.findProductCategories();
+//    }
 
     @Override
     public GoodResponse create(CreateGoodWrapperDto dto) {
-        UploadFileResponse response = uploadPictureRequest(dto.getTitle(), dto.getFile());
-
         Good product = goodRepository.save(Good.builder()
                 .title(dto.getTitle())
                 .categoryId(dto.getCategoryId())
@@ -92,28 +90,28 @@ public class GoodServiceImpl implements GoodService {
         return GoodResponse.cast(product);
     }
 
-    private UploadFileResponse uploadPictureRequest(String productTitle, MultipartFile file) {
-        MultipartBodyBuilder multipartBodyBuilder = new MultipartBodyBuilder();
-        multipartBodyBuilder.part("file", file.getResource());
-        multipartBodyBuilder.part("title", productTitle);
-
-        WebClient webClient = WebClient.builder()
-                .baseUrl(fileSystemBaseUrl)
-                .build();
-
-        UploadFileResponse response = webClient.post()
-                .uri("/file")
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE)
-                .body(BodyInserters.fromMultipartData(multipartBodyBuilder.build()))
-                .retrieve()
-                .bodyToMono(UploadFileResponse.class)
-                .block();
-
-        if (response == null)
-            throw new RuntimeException("Failed to save the file");
-
-        return response;
-    }
+//    private UploadFileResponse uploadPictureRequest(String productTitle, MultipartFile file) {
+//        MultipartBodyBuilder multipartBodyBuilder = new MultipartBodyBuilder();
+//        multipartBodyBuilder.part("file", file.getResource());
+//        multipartBodyBuilder.part("title", productTitle);
+//
+//        WebClient webClient = WebClient.builder()
+//                .baseUrl(fileSystemBaseUrl)
+//                .build();
+//
+//        UploadFileResponse response = webClient.post()
+//                .uri("/file")
+//                .header(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE)
+//                .body(BodyInserters.fromMultipartData(multipartBodyBuilder.build()))
+//                .retrieve()
+//                .bodyToMono(UploadFileResponse.class)
+//                .block();
+//
+//        if (response == null)
+//            throw new RuntimeException("Failed to save the file");
+//
+//        return response;
+//    }
 
     @Override
     public GoodResponse update(int id, UpdateGoodDto dto) throws GoodNotFoundException {
@@ -131,7 +129,7 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public GoodResponse updatePhotoById(int id, MultipartFile file) {
+    public GoodResponse updatePhotoById(int id) {
         Optional<Good> productOptional = goodRepository.findById(id);
 
         if (productOptional.isEmpty())
@@ -139,9 +137,7 @@ public class GoodServiceImpl implements GoodService {
 
         Good product = productOptional.orElseThrow();
 
-        UploadFileResponse response = uploadPictureRequest(product.getTitle(), file);
-
-        product.setImageURL(response.getUrl());
+        product.setImageURL(product.getImageURL());
         product = goodRepository.save(product);
 
         return GoodResponse.cast(product);
