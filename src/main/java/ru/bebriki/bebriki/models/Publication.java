@@ -1,6 +1,5 @@
 package ru.bebriki.bebriki.models;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,11 +9,15 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "positions")
-public class Position {
+@Table(name = "publications")
+public class Publication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    private String title;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "imageURL")
+    private String imageURL;
 }
