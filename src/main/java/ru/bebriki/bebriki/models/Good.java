@@ -26,7 +26,7 @@ public class Good {
     @Column(name = "discount")
     private Integer discount;
     @Column(name = "description")
-    private String descriptionl;
+    private String description;
     @Column(name = "imageURL")
     private String imageURL;
     @Column(name = "amount")
