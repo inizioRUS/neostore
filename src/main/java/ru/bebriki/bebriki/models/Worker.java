@@ -39,7 +39,12 @@ public class Worker {
     private String password;
     @Column(name = "role")
     private String role;
-    @ManyToMany
-    @JoinTable(name = "goods", joinColumns = @JoinColumn(name = "id"))
-    List<Good> wishedGoods;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "wishes", joinColumns = {
+            @JoinColumn(name = "worker_id", referencedColumnName = "id")
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "good_id", referencedColumnName = "id")
+    })
+    List<Good> goods;
 }

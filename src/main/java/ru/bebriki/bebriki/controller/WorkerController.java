@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/workers")
 public class WorkerController {
     @Autowired
     WorkerService workerService;
@@ -24,7 +24,7 @@ public class WorkerController {
         return workerService.getWorkerById(id);
     }
 
-    @PostMapping("/addWorker")
+    @PostMapping
     public Worker addWorker(@RequestBody Worker worker) {
         return workerService.addWorker(worker);
     }

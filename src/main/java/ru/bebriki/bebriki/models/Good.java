@@ -31,7 +31,6 @@ public class Good {
     private String imageURL;
     @Column(name = "amount")
     private Integer amount;
-    @ManyToMany
-    @JoinTable(name = "workers", joinColumns = @JoinColumn(name = "id"))
-    List<Worker> wishedBy;
+    @ManyToMany(mappedBy = "goods", fetch = FetchType.LAZY)
+    List<Worker> workers;
 }
