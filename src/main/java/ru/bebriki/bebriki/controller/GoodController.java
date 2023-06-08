@@ -84,10 +84,7 @@ public class GoodController {
 
         return ResponseEntity.ok(categories);
     }
-    //    @PutMapping("/update")
-//    public Good updateGood(@RequestBody Good good){
-//        return service.update(good);
-//    }
+
     @PatchMapping("/update/{id}")
     //   @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> update(
