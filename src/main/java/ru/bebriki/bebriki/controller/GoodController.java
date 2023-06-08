@@ -65,7 +65,6 @@ public class GoodController {
 
 
     @GetMapping("/{title}")
-
     public ResponseEntity<?> findByTitle(@RequestParam String title) {
         List<GoodResponse> goods = service.findByTitle(title);
 
