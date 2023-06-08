@@ -19,8 +19,8 @@ public class Good {
     private Integer id;
     @Column(name = "title")
     private String title;
-    @Column(name = "categoryId")
-    private Integer categoryId;
+    @Column(name = "category")
+    private String category;
     @Column(name = "price")
     private Integer price;
     @Column(name = "discount")

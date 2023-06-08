@@ -1,27 +1,17 @@
 package ru.bebriki.bebriki.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import ru.bebriki.bebriki.Errors.GoodNotFoundException;
 import ru.bebriki.bebriki.dtos.CreateGoodWrapperDto;
 import ru.bebriki.bebriki.dtos.UpdateGoodDto;
 import ru.bebriki.bebriki.models.Good;
 import ru.bebriki.bebriki.repositories.GoodRepository;
-import ru.bebriki.bebriki.responses.CategoryItemResponse;
 import ru.bebriki.bebriki.responses.GoodResponse;
-import ru.bebriki.bebriki.responses.UploadFileResponse;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class GoodServiceImpl implements GoodService{
@@ -69,16 +59,16 @@ public class GoodServiceImpl implements GoodService{
         return goodRepository.findByTitle(title).stream().map(GoodResponse::cast).toList();
     }
 
-//    @Override
-//    public List<CategoryItemResponse> findGoodsCategories() {
-//        return goodRepository.findProductCategories();
-//    }
+    @Override
+    public List<GoodResponse> findByCategory(String category) {
+        return goodRepository.findByCategory(category).stream().map(GoodResponse::cast).toList();
+    }
 
     @Override
     public GoodResponse create(CreateGoodWrapperDto dto) {
         Good product = goodRepository.save(Good.builder()
                 .title(dto.getTitle())
-                .categoryId(dto.getCategoryId())
+                .category(dto.getCategory())
                 .price(dto.getPrice())
                 .discount(dto.getDiscount())
                 .description(dto.getDescription())

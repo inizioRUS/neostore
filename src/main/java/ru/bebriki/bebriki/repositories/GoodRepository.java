@@ -10,9 +10,8 @@ import java.util.List;
 
 public interface GoodRepository extends JpaRepository<Good, Integer> {
     List<Good> findByTitle(@Param("title") String title);
-//    @Query("SELECT new com.example.demo.responses.CategoryItemResponse(p.category, " +
-//            "COUNT(*) as amount) FROM goods AS p GROUP BY p.category ORDER BY amount DESC")
-//    List<CategoryItemResponse> findProductCategories();
+
+    List<Good> findByCategory(String category);
 
     void deleteByTitle(@Param("title") String title);
 

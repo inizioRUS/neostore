@@ -1,11 +1,9 @@
 package ru.bebriki.bebriki.service;
 
-import org.springframework.web.multipart.MultipartFile;
 import ru.bebriki.bebriki.Errors.GoodNotFoundException;
 import ru.bebriki.bebriki.dtos.CreateGoodWrapperDto;
 import ru.bebriki.bebriki.dtos.UpdateGoodDto;
 import ru.bebriki.bebriki.models.Good;
-import ru.bebriki.bebriki.responses.CategoryItemResponse;
 import ru.bebriki.bebriki.responses.GoodResponse;
 
 import java.util.List;
@@ -23,7 +21,7 @@ public interface GoodService {
 
     List<GoodResponse> findByTitle(String title);
 
-//    List<CategoryItemResponse> findGoodsCategories();
+    List<GoodResponse> findByCategory(String category);
 
     GoodResponse create(CreateGoodWrapperDto dto);
 

@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class CreateGoodWrapperDto {
     private String title;
-    private Integer categoryId;
+    private String category;
     private Integer price;
     private Integer discount;
     private String description;

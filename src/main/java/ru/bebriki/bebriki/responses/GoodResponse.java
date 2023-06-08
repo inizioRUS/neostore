@@ -14,7 +14,7 @@ public class GoodResponse {
 
     private Integer id;
     private String title;
-    private Integer categoryId;
+    private String category;
     private Integer price;
     private Integer discount;
     private String description;
@@ -25,7 +25,7 @@ public class GoodResponse {
         return GoodResponse.builder()
                 .id(good.getId())
                 .title(good.getTitle())
-                .categoryId(good.getCategoryId())
+                .category(good.getCategory())
                 .price(good.getPrice())
                 .discount(good.getDiscount())
                 .description(good.getDescription())
