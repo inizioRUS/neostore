@@ -13,13 +13,20 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "achievements")
 public class Achievement {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "workerId")
-    private Integer workerId;
-    @Column(name = "achievementId")
-    private String achievementId;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "imageURL")
+    private String imageURL;
+
     @Column(name = "date")
     private LocalDateTime date;
 
