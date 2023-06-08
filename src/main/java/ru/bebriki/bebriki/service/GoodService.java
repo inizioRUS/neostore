@@ -3,6 +3,7 @@ package ru.bebriki.bebriki.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.bebriki.bebriki.models.Good;
+import ru.bebriki.bebriki.repositories.GoodRepository;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class GoodService {
         return repository.findById(id).orElse(null);
     }
     public List<Good> getGoodsByName(String name){
-        return repository.findByName(name).orElse(null);
+        return repository.findByName(name);
     }
     public String deleteGood(int id){
         repository.deleteById(id);
