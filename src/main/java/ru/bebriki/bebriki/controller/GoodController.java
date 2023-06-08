@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.bebriki.bebriki.models.Good;
+import ru.bebriki.bebriki.service.GoodService;
 
-@RestController
+@RestController("/goods")
 public class GoodController {
     @Autowired
-    private GoodService GoodService;
+    private GoodService service;
 
     @PostMapping("/addGood")
     public Good addGood(@RequestBody Good good){
