@@ -19,8 +19,8 @@ public class WorkerController {
         return workerService.getWorkers();
     }
 
-    @GetMapping("/worker/{id}")
-    public Worker getWorkerById(@PathVariable Integer id) {
+    @GetMapping("/worker/id/{id}")
+    public Worker getWorkerById(@PathVariable("id") int id) {
         return workerService.getWorkerById(id);
     }
 
