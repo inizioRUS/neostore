@@ -30,7 +30,7 @@ public class TaskController {
         taskService.updateTaskById(id, taskDTO);
     }
 
-    @PostMapping
+    @PostMapping("/createTask")
     public TaskDTO createTask(@RequestBody TaskDTO taskDTO) {
         System.out.println("create method");
         return taskService.createTask(taskDTO);
