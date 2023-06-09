@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import ru.bebriki.bebriki.Errors.TaskNotFoundException;
 import ru.bebriki.bebriki.dtos.TaskDTO;
+import ru.bebriki.bebriki.dtos.WorkerDTO;
 import ru.bebriki.bebriki.models.Post;
 import ru.bebriki.bebriki.models.Task;
 import ru.bebriki.bebriki.models.Worker;
@@ -127,6 +128,27 @@ public class TaskServiceImpl implements TaskService {
         }
         return task;
 
+    }
+    public int addBalance(Task task){
+        if(task.getDifficulty()==1) return 5;
+        if(task.getDifficulty()==2) return 15;
+        return 25;
+    }
+    public int decreaseBalance(Task task){
+        if(task.getDifficulty()==1) return 12;
+        if(task.getDifficulty()==2) return 7;
+        return 3;
+    }
+    public boolean isDone(){
+        if(this.isDone()) return true;
+        return false;
+    }
+    public void changeBalance(WorkerDTO worker){
+        Task task = worker.getTask();
+        if(task.getIsDone()){
+            worker.setBalance(worker.getBalance()+addBalance(task));
+        }
+        else worker.setBalance(worker.getBalance()-decreaseBalance(task));
     }
 
 }
