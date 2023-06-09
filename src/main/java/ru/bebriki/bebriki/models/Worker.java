@@ -51,7 +51,7 @@ public class Worker {
     })
     List<Good> goods;
 
-
     @Column(name = "taskId")
     private Integer taskId;
+
 }

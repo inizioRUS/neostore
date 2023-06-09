@@ -71,6 +71,9 @@ public class TaskServiceImpl implements TaskService {
         if (Objects.nonNull(workerDTO.getPostName()) && !"".equalsIgnoreCase(workerDTO.getPostName())) {
             workerDB.setPostName(workerDTO.getPostName());
         }
+        if (Objects.nonNull(workerDTO.getPostName()) && !"".equalsIgnoreCase(workerDTO.getPostName())) {
+            workerDB.setPostName(workerDTO.getPostName());
+        }
 
         taskRepository.save(toTask(workerDB));
         return workerDB;
@@ -94,6 +97,7 @@ public class TaskServiceImpl implements TaskService {
                 .difficulty(task.getDifficulty())
                 .isDone(task.getIsDone())
                 .postName(post.get().getName())
+                .date(task.getDate())
                 .build();
     }
 
@@ -109,6 +113,9 @@ public class TaskServiceImpl implements TaskService {
                 .isDone(taskDTO.getIsDone())
                 .postId(post.getId())
                 .workerId(worker.get().getId())
+
+                .date(taskDTO.getDate())
+
                 .build();
     }
 

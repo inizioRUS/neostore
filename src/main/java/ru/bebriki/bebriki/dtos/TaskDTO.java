@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import ru.bebriki.bebriki.models.Post;
 import ru.bebriki.bebriki.models.Worker;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -26,6 +28,8 @@ public class TaskDTO {
     private Boolean isDone;
 
     private String postName;
+    private int Worker_id;
+    private LocalDate date;
 
     private Integer workerId;
 

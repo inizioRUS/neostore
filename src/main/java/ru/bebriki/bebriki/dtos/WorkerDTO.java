@@ -34,4 +34,5 @@ public class WorkerDTO {
     private List<Good> goods;
     private Task task;
 
+
 }

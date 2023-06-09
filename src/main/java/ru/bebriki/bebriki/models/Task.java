@@ -3,6 +3,8 @@ package ru.bebriki.bebriki.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -33,4 +35,8 @@ public class Task {
 
     @Column(name = "worker_id")
     private Integer workerId;
+    
+    @Column(name = "date")
+    LocalDate date;
+
 }
