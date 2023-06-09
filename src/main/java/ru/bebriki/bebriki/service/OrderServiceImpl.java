@@ -79,5 +79,10 @@ public class OrderServiceImpl implements OrderService {
         return ordersReturn;
     }
 
+    @Override
+    public Order createOrder(Order order) {
+        return orderRepository.save(order);
+    }
+
 
 }

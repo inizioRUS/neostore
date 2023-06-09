@@ -19,4 +19,6 @@ public interface OrderService {
     void deleteOrder(int id);
 
     List<OrderDTO> getOrderByDate(LocalDateTime dateTime) throws OrderNotFoundException;
+
+    Order createOrder(Order order);
 }

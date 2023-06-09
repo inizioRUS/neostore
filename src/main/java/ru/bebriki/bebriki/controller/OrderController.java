@@ -36,5 +36,10 @@ public class OrderController {
         return orderService.getOrderByDate(dateTime);
     }
 
+    @PostMapping
+    public Order createOrder(@RequestBody Order order) {
+        return orderService.createOrder(order);
+    }
+
 
 }
