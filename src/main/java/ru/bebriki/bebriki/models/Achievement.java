@@ -24,4 +24,5 @@ public class Achievement {
     private String imageURL;
     @Column(name = "date")
     private LocalDateTime date;
+
 }
