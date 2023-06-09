@@ -9,4 +9,5 @@ public class UpdateGoodDto {
     private int price;
     private int amount;
     private String imageURL;
+    private String title;
 }

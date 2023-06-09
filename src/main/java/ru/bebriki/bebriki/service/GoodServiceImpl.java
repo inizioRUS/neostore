@@ -115,6 +115,7 @@ public class GoodServiceImpl implements GoodService{
         product.setPrice(dto.getPrice());
         product.setAmount(dto.getAmount());
         product.setImageURL(dto.getImageURL());
+        product.setTitle(dto.getTitle());
         product = goodRepository.save(product);
 
         return GoodResponse.cast(product);
