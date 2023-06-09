@@ -18,7 +18,7 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/signin")
-    Integer signIn(AuthenticationRequest authenticationRequest)
+    Integer signIn(@RequestBody AuthenticationRequest authenticationRequest)
             throws WorkerNotFoundException, WrongPasswordError {
         return authenticationService
                 .signIn(authenticationRequest.getLogin(),

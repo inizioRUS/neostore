@@ -5,7 +5,14 @@ import org.springframework.web.bind.annotation.*;
 import ru.bebriki.bebriki.Errors.TaskNotFoundException;
 import ru.bebriki.bebriki.dtos.TaskDTO;
 import ru.bebriki.bebriki.models.Task;
+import ru.bebriki.bebriki.models.Worker;
 import ru.bebriki.bebriki.service.TaskService;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -60,15 +67,19 @@ public class TaskController {
         if(this.isDone()) return true;
         return false;
     }
-    public void changeBalance(Task task){
-        if(task.getIsDone()){
-            task.getWorker().setBalance(task.getWorker().getBalance()+addBalance(task));
-        }
-        else task.getWorker().setBalance(task.getWorker().getBalance()-decreaseBalance(task));
-    }
-//    public static int getDayNumberOld(Date date) {
-//        Calendar cal = Calendar.getInstance();
-//        cal.setTime(date);
-//        return cal.get(Calendar.DAY_OF_WEEK);
+//    public void changeBalance(Worker worker){
+//        Task task = worker.getTasks();
+//        if(task.getIsDone()){
+//            worker.setBalance(worker.getBalance()+addBalance(task));
+//        }
+//        else worker.setBalance(worker.getBalance()-decreaseBalance(task));
+//    }
+//    public void getDayNumberOld(List<Worker> workers) {
+//        for(Worker w:workers){
+//            if(date!=LocalDate.now()){
+//                DayOfWeek day = date.getDayOfWeek();
+//                if(day==DayOfWeek.MONDAY) changeBalance(worker.);
+//            }
+//        }
 //    }
 }
