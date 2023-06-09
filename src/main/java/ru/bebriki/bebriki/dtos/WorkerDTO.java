@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WorkerDTO {
+
     private Integer id;
     private String name;
     private String surname;
@@ -32,4 +33,5 @@ public class WorkerDTO {
     private String gender;
     private List<Good> goods;
     private List<Task> tasks = new ArrayList<>();
+
 }

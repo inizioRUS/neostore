@@ -40,7 +40,7 @@ public class AchievementController {
     }
 
     @DeleteMapping("/achievements/{id}")
-    public void deleteAchievementById(@PathVariable("id") int id) {
+    public void deleteAchievementById(@PathVariable("id") int id) throws AchievementNotFoundException {
         achievementService.deleteAchievementById(id);
     }
 

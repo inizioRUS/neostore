@@ -14,5 +14,5 @@ public interface AchievementService {
 
     Achievement createAchievement(Achievement achievement);
 
-    void deleteAchievementById(int id);
+    void deleteAchievementById(int id) throws AchievementNotFoundException;
 }

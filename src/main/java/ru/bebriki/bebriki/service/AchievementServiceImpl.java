@@ -22,7 +22,7 @@ public class AchievementServiceImpl implements AchievementService {
         Optional<Achievement> achievement = achievementRepository.findById(id);
 
         if (achievement.isEmpty()) {
-            throw new AchievementNotFoundException("There is no such department like this");
+            throw new AchievementNotFoundException("There is no such achievement like this");
         }
 
         return achievement.get();
@@ -63,7 +63,14 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     @Override
-    public void deleteAchievementById(int id) {
+    public void deleteAchievementById(int id) throws AchievementNotFoundException {
+
+        Optional<Achievement> achievement = achievementRepository.findById(id);
+
+        if (achievement.isEmpty()) {
+            throw new AchievementNotFoundException("There is no such achievement like this");
+        }
+
         achievementRepository.deleteById(id);
         System.out.println("it was successful deleted");
     }

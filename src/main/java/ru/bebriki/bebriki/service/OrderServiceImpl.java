@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
         Optional<Order> order = orderRepository.findById(id);
 
         if (order.isEmpty()) {
-            throw new OrderNotFoundException("There is no such department like this");
+            throw new OrderNotFoundException("There is no such order like this");
         }
 
         return toDTO(order.get());
@@ -80,7 +80,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDTO> ordersReturn = null;
 
 
-        if (orders.isEmpty()) throw new OrderNotFoundException("There is no such department like this");
+        if (orders.isEmpty()) throw new OrderNotFoundException("There is no such order like this");
 
         for (Order o : orders) {
             ordersReturn.add(toDTO(o));

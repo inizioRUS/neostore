@@ -1,6 +1,7 @@
 package ru.bebriki.bebriki.dtos;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import ru.bebriki.bebriki.models.Worker;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskDTO {
+
     private Integer id;
 
     private String name;
@@ -24,6 +26,8 @@ public class TaskDTO {
     private Boolean isDone;
 
     private String postName;
+
+    @ManyToOne
     private Worker worker;
 
 }
