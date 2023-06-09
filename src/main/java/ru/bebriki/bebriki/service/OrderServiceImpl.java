@@ -56,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order toOrder(OrderDTO orderDTO) {
 
-        Worker worker = workerService.toWorker(workerService.getWorkerById(orderDTO.getId()));
+        Worker worker = workerService.toWorker(workerService.getWorkerById(orderDTO.getWorkerId()));
 
         return Order.builder()
                 .id(orderDTO.getId())

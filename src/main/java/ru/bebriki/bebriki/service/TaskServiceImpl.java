@@ -30,9 +30,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDTO> getTasks() {
-        return taskRepository.findAll().stream()
-                .map(this::toDTO)
-                .toList();
+        return taskRepository.findAll().stream().map(this::toDTO).toList();
     }
 
     @Override
@@ -89,7 +87,11 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDTO toDTO(Task task) {
 
+        System.out.println(task.getWorkerId());
+
         Optional<Post> post = postRepository.findById(task.getPostId());
+        Optional<Worker> worker = workerRepository.findById(task.getWorkerId());
+
 
         return TaskDTO.builder()
                 .id(task.getId())
@@ -99,6 +101,7 @@ public class TaskServiceImpl implements TaskService {
                 .isDone(task.getIsDone())
                 .postName(post.get().getName())
                 .date(task.getDate())
+                .workerId(worker.get().getId())
                 .build();
     }
 
@@ -144,7 +147,7 @@ public class TaskServiceImpl implements TaskService {
         return false;
     }
     public void changeBalance(WorkerDTO worker){
-        Task task = worker.getTask();
+        Task task = taskRepository.findTaskByWorkerId(worker.getId());
         if(task.getIsDone()){
             worker.setBalance(worker.getBalance()+addBalance(task));
         }

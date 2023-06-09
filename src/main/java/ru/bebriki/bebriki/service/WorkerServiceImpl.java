@@ -38,6 +38,10 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public WorkerDTO getWorkerById(Integer id) {
         Optional<Worker> worker = workerRepository.findById(id);
+
+        System.out.println(id);
+        System.out.println(worker);
+
         if (worker.isEmpty()) {
             throw new IllegalArgumentException("no such worker");
         }
@@ -141,7 +145,6 @@ public class WorkerServiceImpl implements WorkerService {
                 .gender(worker.getGender())
                 .orders(worker.getOrders())
                 .imageURL(worker.getImageURL())
-                .task(task)
                 .build();
     }
 
@@ -164,7 +167,6 @@ public class WorkerServiceImpl implements WorkerService {
                 .role(workerDTO.getRole())
                 .gender(workerDTO.getGender())
                 .orders(workerDTO.getOrders())
-                .taskId(workerDTO.getTask().getId())
                 .imageURL(workerDTO.getImageURL())
                 .build();
     }

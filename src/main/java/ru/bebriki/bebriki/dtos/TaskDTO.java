@@ -28,7 +28,7 @@ public class TaskDTO {
     private Boolean isDone;
 
     private String postName;
-    private int Worker_id;
+
     private LocalDate date;
 
     private Integer workerId;

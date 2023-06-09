@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import ru.bebriki.bebriki.dtos.TaskDTO;
 import ru.bebriki.bebriki.dtos.WorkerDTO;
 import ru.bebriki.bebriki.models.Worker;
 
@@ -29,12 +30,12 @@ public class PricingEngine {
     @Scheduled(cron = "* * * * * 1")
     public void getDayNumberOld() throws InterruptedException {
         System.out.println("adsadadadadadada");
-        List<WorkerDTO> workers=  workerService.getWorkers();
-        for(WorkerDTO w:workers){
-            if(Objects.isNull(w.getTask())) continue;
-            LocalDate date = w.getTask().getDate();
+        List<TaskDTO> taskDTOS=  taskService.getTasks();
+        for(TaskDTO w:taskDTOS){
+            if(Objects.isNull(w)) continue;
+            LocalDate date = w.getDate();
             if(date!=LocalDate.now()){
-                 taskService.changeBalance(w);
+                 taskService.changeBalance(workerService.getWorkerById(w.getWorkerId()));
             }
         }
         System.out.println("end");

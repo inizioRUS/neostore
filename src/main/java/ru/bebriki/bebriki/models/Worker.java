@@ -48,7 +48,4 @@ public class Worker {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "worker")
     List<Order> orders;
 
-    @Column(name = "taskId")
-    private Integer taskId;
-
 }

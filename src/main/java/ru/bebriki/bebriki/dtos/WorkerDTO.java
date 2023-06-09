@@ -33,7 +33,6 @@ public class WorkerDTO {
     private String role;
     private String gender;
     private List<Order> orders;
-    private Task task;
     private String imageURL;
 
 
