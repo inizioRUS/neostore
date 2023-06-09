@@ -106,12 +106,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task getTaskByDifficulty(Integer difficulty) {
-        Optional<Task> task = taskRepository.findByDifficulty(difficulty);
+    public List<Task> getTaskByDifficulty(Integer difficulty) {
+        List<Task> task = taskRepository.findByDifficulty(difficulty);
         if(task.isEmpty()){
             throw new IllegalArgumentException("no such difficult task");
         }
-        return task.get();
+        return task;
 
     }
 

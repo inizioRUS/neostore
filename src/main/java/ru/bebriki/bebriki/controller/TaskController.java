@@ -42,7 +42,7 @@ public class TaskController {
     }
 
     @GetMapping("/taskByDifficulty/{difficulty}")
-    public Task getTaskByDifficulty(@PathVariable("difficulty") int difficulty) throws TaskNotFoundException{
+    public List<Task> getTaskByDifficulty(@PathVariable("difficulty") int difficulty) throws TaskNotFoundException{
         return taskService.getTaskByDifficulty(difficulty);
     }
 
