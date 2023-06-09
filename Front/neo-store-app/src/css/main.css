@@ -40,3 +40,8 @@ body{
     color: white;
     background: linear-gradient(124.86deg, #FFD500 11.2%, #FF007A 85.95%), #FFFFFF;
 }
+
+.expand{
+    width: 100%;
+    height: 100%;
+}

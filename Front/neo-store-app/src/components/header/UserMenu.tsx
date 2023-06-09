@@ -5,7 +5,7 @@ import cart from '../../assets/icons/Cart.svg';
 import burger from '../../assets/icons/Burger.svg';
 
 interface UserMenuProps {
-    
+    userId : number
 }
  
 interface UserMenuState {
@@ -13,6 +13,10 @@ interface UserMenuState {
 }
  
 class UserMenu extends React.Component<UserMenuProps, UserMenuState> {
+    constructor(props : UserMenuProps){
+      super(props);
+    }
+
     state = {
 
     }

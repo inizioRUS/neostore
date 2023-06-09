@@ -3,6 +3,8 @@ import UserMenu from './UserMenu';
 import { Link } from 'react-router-dom';
 import '../../css/header.css';
 import logo from '../../assets/images/NeoStore.svg';
+import storage from '../../assets/scripts/functions/storage';
+import SignInRedirection from './SignInRedirection';
 
 interface HeaderProps {
     
@@ -29,7 +31,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                         <Link to='/activities'>Активности</Link>
                     </div>
                 </div>
-                <UserMenu />
+                {storage.CheckLogin() ? <UserMenu userId={storage.GetLogin()}/> : <SignInRedirection />}
             </header>
         );
     }
