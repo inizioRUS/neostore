@@ -21,4 +21,7 @@ public interface TaskService {
     TaskDTO toDTO(Task task);
 
     Task toTask(TaskDTO taskDTO);
+
+    Task getTaskByDifficulty(Integer difficulty);
+
 }

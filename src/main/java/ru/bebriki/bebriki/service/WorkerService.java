@@ -2,21 +2,27 @@ package ru.bebriki.bebriki.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.bebriki.bebriki.Errors.WorkerNotFoundException;
+import ru.bebriki.bebriki.dtos.WorkerDTO;
 import ru.bebriki.bebriki.models.Worker;
 import ru.bebriki.bebriki.repositories.WorkerRepository;
 
 import java.util.List;
 
 public interface WorkerService {
-    List<Worker> getWorkers();
+    List<WorkerDTO> getWorkers();
 
-    Worker getWorkerById(Integer id);
+    WorkerDTO getWorkerById(Integer id) throws WorkerNotFoundException;
 
-    Worker addWorker(Worker worker);
+    WorkerDTO addWorker(WorkerDTO workerDTO);
 
-    void deleteWorkerById(Integer id);
+    void deleteWorkerById(Integer id) throws WorkerNotFoundException;
 
-    Worker updateWorker(Integer id, Worker worker);
+    WorkerDTO updateWorker(Integer id, WorkerDTO workerDTO);
 
-    Worker getWorkerByLogin(String login);
+    WorkerDTO getWorkerByLogin(String login) throws WorkerNotFoundException;
+
+    WorkerDTO toDTO(Worker worker);
+
+    Worker toWorker(WorkerDTO workerDTO);
 }

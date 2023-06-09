@@ -26,8 +26,8 @@ public class Worker {
     private String secondName;
     @Column(name = "login")
     private String login;
-    @Column(name = "vacancyId")
-    private Integer vacancyId;
+    @Column(name = "postId")
+    private Integer postId;
     @Column(name = "positionId")
     private Integer positionId;
     @Column(name = "age")

@@ -2,12 +2,14 @@ package ru.bebriki.bebriki.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ru.bebriki.bebriki.Errors.TaskNotFoundException;
 import ru.bebriki.bebriki.dtos.TaskDTO;
 import ru.bebriki.bebriki.models.Post;
 import ru.bebriki.bebriki.models.Task;
 import ru.bebriki.bebriki.repositories.PostRepository;
 import ru.bebriki.bebriki.repositories.TaskRepository;
+
 
 import java.util.List;
 import java.util.Objects;
@@ -99,6 +101,16 @@ public class TaskServiceImpl implements TaskService {
                 .difficulty(taskDTO.getDifficulty())
                 .isDone(taskDTO.getIsDone())
                 .build();
+    }
+
+    @Override
+    public Task getTaskByDifficulty(Integer difficulty) {
+        Optional<Task> task = taskRepository.findByDifficulty(difficulty);
+        if(task.isEmpty()){
+            throw new IllegalArgumentException("no such difficult task");
+        }
+        return task.get();
+
     }
 
 }
