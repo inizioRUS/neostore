@@ -2,6 +2,7 @@ package ru.bebriki.bebriki.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.bebriki.bebriki.dtos.WorkerDTO;
 import ru.bebriki.bebriki.models.Worker;
 import ru.bebriki.bebriki.repositories.WorkerRepository;
 
@@ -19,4 +20,6 @@ public interface WorkerService {
     Worker updateWorker(Integer id, Worker worker);
 
     Worker getWorkerByLogin(String login);
+
+    WorkerDTO toDTO(Worker worker);
 }

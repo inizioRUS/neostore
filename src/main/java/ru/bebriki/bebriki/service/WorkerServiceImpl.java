@@ -2,7 +2,12 @@ package ru.bebriki.bebriki.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.bebriki.bebriki.dtos.WorkerDTO;
+import ru.bebriki.bebriki.models.Position;
+import ru.bebriki.bebriki.models.Post;
 import ru.bebriki.bebriki.models.Worker;
+import ru.bebriki.bebriki.repositories.PositionRepository;
+import ru.bebriki.bebriki.repositories.PostRepository;
 import ru.bebriki.bebriki.repositories.WorkerRepository;
 
 import java.util.List;
@@ -13,6 +18,10 @@ import java.util.Optional;
 public class WorkerServiceImpl implements WorkerService {
     @Autowired
     private WorkerRepository workerRepository;
+    @Autowired
+    private PositionRepository positionRepository;
+    @Autowired
+    private PostRepository postRepository;
 
     @Override
     public List<Worker> getWorkers() {
@@ -48,8 +57,8 @@ public class WorkerServiceImpl implements WorkerService {
         if (Objects.nonNull(worker.getLogin()) && !"".equalsIgnoreCase(worker.getLogin())) {
             workerDB.setLogin(worker.getLogin());
         }
-        if (Objects.nonNull(worker.getVacancyId()) && worker.getVacancyId() != 0) {
-            workerDB.setVacancyId(worker.getVacancyId());
+        if (Objects.nonNull(worker.getPostId()) && worker.getPostId() != 0) {
+            workerDB.setPostId(worker.getPostId());
         }
         if (Objects.nonNull(worker.getPositionId()) && worker.getPositionId() != 0) {
             workerDB.setPositionId(worker.getPositionId());
@@ -83,5 +92,27 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public Worker getWorkerByLogin(String login) {
         return workerRepository.findByLogin(login).orElse(null);
+    }
+
+    @Override
+    public WorkerDTO toDTO(Worker worker) {
+        Position position = positionRepository.findById(worker.getPositionId()).get();
+        Post post = postRepository.findById(worker.getPostId()).get();
+
+        return WorkerDTO.builder()
+                .id(worker.getId())
+                .name(worker.getName())
+                .surname(worker.getSurname())
+                .secondName(worker.getSecondName())
+                .login(worker.getLogin())
+                .post(post.getName())
+                .position(position.getName())
+                .age(worker.getAge())
+                .phone(worker.getPhone())
+                .balance(worker.getBalance())
+                .password(worker.getPassword())
+                .role(worker.getRole())
+                .gender(worker.getGender())
+                .build();
     }
 }
