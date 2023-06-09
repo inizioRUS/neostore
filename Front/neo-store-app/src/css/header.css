@@ -1,0 +1,125 @@
+header{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    
+    width: 100%;
+}
+
+.nav-line{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    padding: 15px;
+    gap: 10px;
+    background-color: #150F1E;
+}
+
+.nav-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
+    padding: 0px 145px;
+    gap: 30px;
+}
+
+.nav-buttons a{
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+
+    transition: 0.3s ease;
+}
+
+.nav-buttons a:hover{
+    color: orange;
+}
+
+.outer-user-menu{
+    padding: 10px;
+    background-color: #150F1E;
+    width: 400px;
+    min-height: 100px;
+    height: auto;
+
+    border-radius: 0 0 0 50px;
+}
+
+.inner-user-menu{
+    display: flex;
+    flex-direction: row;
+
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+    border-radius: 5% 5% 5% 40px;
+}
+
+.inner-user-menu img{
+    height: 100px;
+    width: 100px;
+    border-radius: 10px 10px 10px 30px;
+}
+
+.user-menu-avatar{
+    height: 100%;
+    height: 100%;
+    border-radius: 20px 5px 30px 20px;
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+}
+
+.user-info{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+}
+
+.user-buttons button{
+    border: none;
+    background: none;
+    height: 100%;
+}
+
+.user-buttons button img{
+    height: 60px;
+    width: 60px;
+}
+
+.balance{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    gap: 15px;
+    color: white;
+    font-size: 22px;
+    font-weight: 500;
+
+    background: #150F1E;
+    border-radius: 10px;
+}
+
+.balance img{
+    height: 25px;
+    width: 25px;
+}

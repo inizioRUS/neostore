@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'Inter';
+    src: url(../assets/fonts/Inter-V.ttf);
+}
+
+#root{
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+body{
+    font-size: 16px;
+    font-family: 'Inter';
+    background-color: #F5F4FF;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px;
+    
+    gap: 15px;
+    width: 80%;
+    
+
+    padding-top: 120px;
+}
+
+.row{
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.bright{
+    color: white;
+    background: linear-gradient(124.86deg, #FFD500 11.2%, #FF007A 85.95%), #FFFFFF;
+}
