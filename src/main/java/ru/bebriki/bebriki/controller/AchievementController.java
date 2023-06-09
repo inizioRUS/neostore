@@ -13,6 +13,7 @@ import ru.bebriki.bebriki.service.AchievementServiceImpl;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class AchievementController {
 
     @Autowired

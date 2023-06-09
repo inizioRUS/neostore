@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/workers")
+@CrossOrigin
 public class WorkerController {
     @Autowired
     WorkerService workerService;
