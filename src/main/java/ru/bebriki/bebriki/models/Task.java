@@ -11,17 +11,25 @@ import lombok.*;
 @Entity
 @Table(name = "tasks")
 public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "description")
     private String description;
+
     @Column(name = "difficulty")
     private Integer difficulty;
+
     @Column(name = "isDone")
     private Boolean isDone;
+
+    @Column(name = "post_id")
+    private Integer postId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "worker_id")

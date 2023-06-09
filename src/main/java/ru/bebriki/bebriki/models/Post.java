@@ -16,4 +16,5 @@ public class Post {
     private Integer id;
     @Column(name = "name")
     private String name;
+
 }
