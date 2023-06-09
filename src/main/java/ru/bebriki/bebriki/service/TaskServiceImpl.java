@@ -7,8 +7,10 @@ import ru.bebriki.bebriki.Errors.TaskNotFoundException;
 import ru.bebriki.bebriki.dtos.TaskDTO;
 import ru.bebriki.bebriki.models.Post;
 import ru.bebriki.bebriki.models.Task;
+import ru.bebriki.bebriki.models.Worker;
 import ru.bebriki.bebriki.repositories.PostRepository;
 import ru.bebriki.bebriki.repositories.TaskRepository;
+import ru.bebriki.bebriki.repositories.WorkerRepository;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +23,9 @@ public class TaskServiceImpl implements TaskService {
     private TaskRepository taskRepository;
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private WorkerRepository workerRepository;
 
     @Override
     public List<TaskDTO> getTasks() {
@@ -79,6 +84,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDTO toDTO(Task task) {
+
         Optional<Post> post = postRepository.findById(task.getPostId());
 
         return TaskDTO.builder()
@@ -94,6 +100,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task toTask(TaskDTO taskDTO) {
         Post post = postRepository.findByName(taskDTO.getPostName());
+        Optional<Worker> worker = workerRepository.findById(taskDTO.getWorkerId());
         return Task.builder()
                 .id(taskDTO.getId())
                 .name(taskDTO.getName())
@@ -101,6 +108,7 @@ public class TaskServiceImpl implements TaskService {
                 .difficulty(taskDTO.getDifficulty())
                 .isDone(taskDTO.getIsDone())
                 .postId(post.getId())
+                .workerId(worker.get().getId())
                 .build();
     }
 

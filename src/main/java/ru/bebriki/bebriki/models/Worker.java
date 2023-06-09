@@ -51,6 +51,7 @@ public class Worker {
     })
     List<Good> goods;
 
-    @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Task> tasks = new ArrayList<>();
+
+    @Column(name = "taskId")
+    private Integer taskId;
 }

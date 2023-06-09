@@ -67,20 +67,20 @@ public class TaskController {
         if(this.isDone()) return true;
         return false;
     }
-    public void changeBalance(Worker worker){
-        Task task = worker.getTasks();
-        if(task.getIsDone()){
-            worker.setBalance(worker.getBalance()+addBalance(task));
-        }
-        else worker.setBalance(worker.getBalance()-decreaseBalance(task));
-    }
-    public void getDayNumberOld(List<Worker> workers) {
-        for(Worker w:workers){
-            LocalDate date = w.getTasks().getDate();
-            if(date!=LocalDate.now()){
-                DayOfWeek day = date.getDayOfWeek();
-                if(day==DayOfWeek.MONDAY) changeBalance(w);
-            }
-        }
-    }
+//    public void changeBalance(Worker worker){
+//        Task task = worker;
+//        if(task.getIsDone()){
+//            worker.setBalance(worker.getBalance()+addBalance(task));
+//        }
+//        else worker.setBalance(worker.getBalance()-decreaseBalance(task));
+//    }
+//    public void getDayNumberOld(List<Worker> workers) {
+//        for(Worker w:workers){
+//            LocalDate date = w.getTask().getDate();
+//            if(date!=LocalDate.now()){
+//                DayOfWeek day = date.getDayOfWeek();
+//                if(day==DayOfWeek.MONDAY) changeBalance(w);
+//            }
+//        }
+//    }
 }

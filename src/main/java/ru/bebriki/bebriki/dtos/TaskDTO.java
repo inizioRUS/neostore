@@ -27,4 +27,6 @@ public class TaskDTO {
 
     private String postName;
 
+    private Integer workerId;
+
 }

@@ -31,7 +31,6 @@ public class Task {
     @Column(name = "post_id")
     private Integer postId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "worker_id")
-    private Worker worker;
+    @Column(name = "worker_id")
+    private Integer workerId;
 }

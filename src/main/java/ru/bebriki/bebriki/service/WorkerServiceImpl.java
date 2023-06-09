@@ -6,9 +6,11 @@ import ru.bebriki.bebriki.Errors.WorkerNotFoundException;
 import ru.bebriki.bebriki.dtos.WorkerDTO;
 import ru.bebriki.bebriki.models.Position;
 import ru.bebriki.bebriki.models.Post;
+import ru.bebriki.bebriki.models.Task;
 import ru.bebriki.bebriki.models.Worker;
 import ru.bebriki.bebriki.repositories.PositionRepository;
 import ru.bebriki.bebriki.repositories.PostRepository;
+import ru.bebriki.bebriki.repositories.TaskRepository;
 import ru.bebriki.bebriki.repositories.WorkerRepository;
 
 import java.util.List;
@@ -23,6 +25,8 @@ public class WorkerServiceImpl implements WorkerService {
     private PositionRepository positionRepository;
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private TaskRepository taskRepository;
 
     @Override
     public List<WorkerDTO> getWorkers() {
@@ -109,6 +113,7 @@ public class WorkerServiceImpl implements WorkerService {
     public WorkerDTO toDTO(Worker worker) {
         Position position = positionRepository.findById(worker.getPositionId()).get();
         Post post = postRepository.findById(worker.getPostId()).get();
+        Task task = taskRepository.findByWorkerId(worker.getId());
 
         return WorkerDTO.builder()
                 .id(worker.getId())
@@ -125,7 +130,7 @@ public class WorkerServiceImpl implements WorkerService {
                 .role(worker.getRole())
                 .gender(worker.getGender())
                 .goods(worker.getGoods())
-                .tasks(worker.getTasks())
+                .task(task)
                 .build();
     }
 
@@ -148,7 +153,7 @@ public class WorkerServiceImpl implements WorkerService {
                 .role(workerDTO.getRole())
                 .gender(workerDTO.getGender())
                 .goods(workerDTO.getGoods())
-                .tasks(workerDTO.getTasks())
+                .taskId(workerDTO.getTask().getId())
                 .build();
     }
 }
