@@ -22,10 +22,10 @@ public class Order {
     @Column(name = "date")
     private LocalDateTime date;
     @OneToMany(targetEntity = OrderItem.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "orderItemId", referencedColumnName = "id")
-    private List<Good> items;
+    @JoinColumn(name = "itemId", referencedColumnName = "id")
+    private List<OrderItem> items;
 
-    public Order(Integer workerId, LocalDateTime date, List<Good> items) {
+    public Order(Integer workerId, LocalDateTime date, List<OrderItem> items) {
         this.workerId = workerId;
         this.date = date;
         this.items = items;

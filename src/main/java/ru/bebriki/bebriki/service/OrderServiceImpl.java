@@ -10,6 +10,7 @@ import ru.bebriki.bebriki.controller.GoodController;
 import ru.bebriki.bebriki.dtos.OrderDTO;
 import ru.bebriki.bebriki.models.Good;
 import ru.bebriki.bebriki.models.Order;
+import ru.bebriki.bebriki.models.OrderItem;
 import ru.bebriki.bebriki.models.Worker;
 import ru.bebriki.bebriki.repositories.OrderRepository;
 import ru.bebriki.bebriki.responses.GoodResponse;
@@ -45,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
         return OrderDTO.builder()
                 .id(orderDB.getId())
                 .date(orderDB.getDate())
-                .items(orderDB.getItems())
+                .goods(orderDB.getGoods())
                 .workerId(orderDB.getWorkerId())
                 .build();
     }
@@ -55,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
         return Order.builder()
                 .id(orderDTO.getId())
                 .date(orderDTO.getDate())
-                .items(orderDTO.getItems())
+                .goods(orderDTO.getGoods())
                 .workerId(orderDTO.getWorkerId())
                 .build();
     }
@@ -118,6 +119,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public boolean placeOnOrder(List<Good> list, int id){
         int totalPrice = 0;
+        List<OrderItem> orderItems = null;
         for (Good g : list) {
             totalPrice += g.getPrice() * g.getAmount();
         }
@@ -132,7 +134,12 @@ public class OrderServiceImpl implements OrderService {
                 listDb.add(goodService.findById((responseList.get(i)).getId()));
                 listDb.get(i).setAmount(listDb.get(i).getAmount()-responseList.get(i).getAmount());
             }
-            createOrder(new Order((Integer)id, LocalDateTime.now(), list));
+
+            for (Good good : list) {
+                orderItems.add(new OrderItem(good.getAmount(), good.getPrice() * good.getAmount(), good.getId()));
+            }
+
+            createOrder(new Order((Integer)id, LocalDateTime.now(), orderItems));
             return true;
 
         }

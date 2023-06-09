@@ -19,4 +19,12 @@ public class OrderItem {
     private Integer amount;
     @Column(name = "total")
     private Integer total;
+    @Column(name = "goodId")
+    private Integer goodId;
+
+    public OrderItem(Integer amount, Integer total, Integer goodId) {
+        this.amount = amount;
+        this.total = total;
+        this.goodId = goodId;
+    }
 }
