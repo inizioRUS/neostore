@@ -5,7 +5,7 @@ import "../css/signin.css"
 class SignInPage extends Component {
     render() {
         return (
-            <div className='conatainer'>
+            <div className='container'>
                 <div className='signin'>
                     <img src={logo} alt='' className='img'></img>
                     <input type='text' placeholder='Логин' className='input'></input>

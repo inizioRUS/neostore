@@ -9,6 +9,7 @@ import StorePage from './pages/StorePage';
 import './css/reset.css';
 import './css/main.css';
 import SignInPage from './pages/SignInPage';
+import ItemPage from './pages/ItemPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path='/heroes' element={<HeroesPage />}/>
           <Route path='/profile' element={<ProfilePage />}/>
           <Route path='/signin' element={<SignInPage />} />
+          <Route path='/item' element={<ItemPage />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
     </>
