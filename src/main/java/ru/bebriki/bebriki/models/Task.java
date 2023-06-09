@@ -3,16 +3,14 @@ package ru.bebriki.bebriki.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "achievements")
-public class Achievement {
+@Table(name = "tasks")
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,8 +18,12 @@ public class Achievement {
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "imageURL")
-    private String imageURL;
-    @Column(name = "date")
-    private LocalDateTime date;
+    @Column(name = "difficulty")
+    private Integer difficulty;
+    @Column(name = "isDone")
+    private Boolean isDone;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "worker_id")
+    private Worker worker;
 }

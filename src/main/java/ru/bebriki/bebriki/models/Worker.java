@@ -3,6 +3,7 @@ package ru.bebriki.bebriki.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -49,4 +50,7 @@ public class Worker {
             @JoinColumn(name = "good_id", referencedColumnName = "id")
     })
     List<Good> goods;
+
+    @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Task> tasks = new ArrayList<>();
 }
