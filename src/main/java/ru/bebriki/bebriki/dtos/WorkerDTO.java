@@ -32,6 +32,6 @@ public class WorkerDTO {
     private String role;
     private String gender;
     private List<Good> goods;
-    private List<Task> tasks = new ArrayList<>();
+    private Task tasks ;
 
 }

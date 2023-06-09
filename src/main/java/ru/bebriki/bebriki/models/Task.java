@@ -3,6 +3,8 @@ package ru.bebriki.bebriki.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -30,8 +32,9 @@ public class Task {
 
     @Column(name = "post_id")
     private Integer postId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "date")
+    LocalDate date;
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "worker_id")
     private Worker worker;
 }

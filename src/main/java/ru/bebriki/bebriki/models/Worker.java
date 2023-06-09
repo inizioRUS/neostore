@@ -51,6 +51,6 @@ public class Worker {
     })
     List<Good> goods;
 
-    @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Task> tasks = new ArrayList<>();
+    @OneToOne(mappedBy = "worker", cascade = CascadeType.ALL, orphanRemoval = true)
+    Task tasks;
 }
