@@ -39,6 +39,8 @@ public class Worker {
     private String password;
     @Column(name = "role")
     private String role;
+    @Column(name = "gender")
+    private String gender;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "wishes", joinColumns = {
