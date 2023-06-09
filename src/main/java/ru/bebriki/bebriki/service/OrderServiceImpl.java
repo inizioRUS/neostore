@@ -1,0 +1,83 @@
+package ru.bebriki.bebriki.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ru.bebriki.bebriki.Errors.AchievementNotFoundException;
+import ru.bebriki.bebriki.Errors.OrderNotFoundException;
+import ru.bebriki.bebriki.dtos.OrderDTO;
+import ru.bebriki.bebriki.models.Order;
+import ru.bebriki.bebriki.repositories.OrderRepository;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Override
+    public OrderDTO getOrderById(int id) throws OrderNotFoundException {
+
+        Optional<Order> order = orderRepository.findById(id);
+
+        if (order.isEmpty()) {
+            throw new OrderNotFoundException("There is no such department like this");
+        }
+
+        return toDTO(order.get());
+    }
+
+    @Override
+    public OrderDTO toDTO(Order order) {
+        Order orderDB = orderRepository.findById(order.getId()).get();
+        return OrderDTO.builder()
+                .id(orderDB.getId())
+                .date(orderDB.getDate())
+                .items(orderDB.getItems())
+                .workerId(orderDB.getWorkerId())
+                .build();
+    }
+
+    @Override
+    public Order toOrder(OrderDTO orderDTO) {
+        return Order.builder()
+                .id(orderDTO.getId())
+                .date(orderDTO.getDate())
+                .items(orderDTO.getItems())
+                .workerId(orderDTO.getWorkerId())
+                .build();
+    }
+
+    @Override
+    public List<OrderDTO> getAllOrders() {
+        return orderRepository.findAll().stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
+    @Override
+    public void deleteOrder(int id) {
+        orderRepository.deleteById(id);
+    }
+
+    @Override
+    public List<OrderDTO> getOrderByDate(LocalDateTime dateTime) throws OrderNotFoundException {
+
+        List<Order> orders = orderRepository.findByDate(dateTime);
+        List<OrderDTO> ordersReturn = null;
+
+
+        if (orders.isEmpty()) throw new OrderNotFoundException("There is no such department like this");
+
+        for(Order o: orders){
+            ordersReturn.add(toDTO(o));
+        }
+
+        return ordersReturn;
+    }
+
+
+}

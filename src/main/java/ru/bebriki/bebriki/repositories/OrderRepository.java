@@ -5,8 +5,9 @@ import ru.bebriki.bebriki.models.Order;
 import ru.bebriki.bebriki.models.Task;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-    Optional<Order> findByData(LocalDateTime date);
+    List<Order> findByDate(LocalDateTime date);
 }
