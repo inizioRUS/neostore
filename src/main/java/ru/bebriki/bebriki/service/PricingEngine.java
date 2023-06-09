@@ -26,7 +26,7 @@ public class PricingEngine {
 
     //@Scheduled(fixedDelayString = "${interval}")
     //@Scheduled(cron = "@hourly")
-    @Scheduled(cron = "3 * * * * *")
+    @Scheduled(cron = "* * * * * 1")
     public void getDayNumberOld() throws InterruptedException {
         System.out.println("adsadadadadadada");
         List<WorkerDTO> workers=  workerService.getWorkers();
