@@ -1,12 +1,16 @@
 package ru.bebriki.bebriki.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.bebriki.bebriki.Errors.AchievementNotFoundException;
 import ru.bebriki.bebriki.Errors.OrderNotFoundException;
+import ru.bebriki.bebriki.controller.GoodController;
 import ru.bebriki.bebriki.dtos.OrderDTO;
+import ru.bebriki.bebriki.models.Good;
 import ru.bebriki.bebriki.models.Order;
 import ru.bebriki.bebriki.repositories.OrderRepository;
+import ru.bebriki.bebriki.responses.GoodResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,9 +18,11 @@ import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-
+    @Autowired
+    private GoodServiceImpl goodService;
     @Autowired
     private OrderRepository orderRepository;
+
 
     @Override
     public OrderDTO getOrderById(int id) throws OrderNotFoundException {
@@ -77,6 +83,22 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return ordersReturn;
+    }
+
+    public boolean compareAmount(List<Good> list){
+
+        List<GoodResponse> listDb = null;
+        List<GoodResponse> responseList = null;
+        for(Good g:list){
+            responseList.add(GoodResponse.cast(g));
+        }
+        for(GoodResponse g:responseList){
+            listDb.add(goodService.findById(g.getId()));
+        }
+        for(int i=0; i<list.size();i++){
+            if(list.get(i).getAmount()>listDb.get(i).getAmount()) return false;
+        }
+        return true;
     }
 
 
