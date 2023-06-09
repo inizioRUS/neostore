@@ -7,4 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class UpdateGoodDto {
     private int price;
+    private int amount;
+    private String imageURL;
 }
