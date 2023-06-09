@@ -123,7 +123,7 @@ public class GoodController {
 
         return ResponseEntity.ok(pizza);
     }
-    @DeleteMapping
+    @DeleteMapping("")
     //   @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteByTitle(@RequestParam String title) {
         List<GoodResponse> pizzas = goodService.deleteByTitle(title);
