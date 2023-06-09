@@ -113,6 +113,13 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
+    public List<WorkerDTO> findAllByOrderByBalanceDesc() {
+        return workerRepository.findAllByOrderByBalanceDesc().stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
+    @Override
     public WorkerDTO toDTO(Worker worker) {
         Position position = positionRepository.findById(worker.getPositionId()).get();
         Post post = postRepository.findById(worker.getPostId()).get();
