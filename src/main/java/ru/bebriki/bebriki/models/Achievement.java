@@ -25,6 +25,5 @@ public class Achievement {
     private String imageURL;
     @Column(name = "date")
     private LocalDateTime date;
-    @Column(name = "isDone")
-    private Boolean isDone;
+
 }
