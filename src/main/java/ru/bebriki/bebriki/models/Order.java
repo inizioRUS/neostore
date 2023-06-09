@@ -26,7 +26,7 @@ public class Order {
     private List<OrderItem> items;
 
     @ManyToOne
-    @JoinColumn(name="my_worker_id")
+    @JoinColumn(name="workersId")
     private Worker worker;
 
 //    public Order(Integer workerId, LocalDateTime date, List<OrderItem> items) {

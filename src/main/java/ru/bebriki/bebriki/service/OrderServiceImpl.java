@@ -8,6 +8,7 @@ import ru.bebriki.bebriki.Errors.AchievementNotFoundException;
 import ru.bebriki.bebriki.Errors.OrderNotFoundException;
 import ru.bebriki.bebriki.controller.GoodController;
 import ru.bebriki.bebriki.dtos.OrderDTO;
+import ru.bebriki.bebriki.dtos.WorkerDTO;
 import ru.bebriki.bebriki.models.Good;
 import ru.bebriki.bebriki.models.Order;
 import ru.bebriki.bebriki.models.OrderItem;
@@ -27,6 +28,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private WorkerServiceImpl workerService;
+
 
     @Override
     public OrderDTO getOrderById(int id) throws OrderNotFoundException {
@@ -53,11 +55,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order toOrder(OrderDTO orderDTO) {
+
+        Worker worker = workerService.toWorker(workerService.getWorkerById(orderDTO.getId()));
+
         return Order.builder()
                 .id(orderDTO.getId())
                 .date(orderDTO.getDate())
                 .items(orderDTO.getItems())
                 .workerId(orderDTO.getWorkerId())
+                .worker(worker)
                 .build();
     }
 

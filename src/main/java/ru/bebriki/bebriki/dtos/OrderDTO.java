@@ -1,9 +1,6 @@
 package ru.bebriki.bebriki.dtos;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,8 +22,6 @@ public class OrderDTO {
     private Integer workerId;
     private LocalDateTime date;
     private List<OrderItem> items;
-
-
 
     public OrderDTO(Integer workerId, LocalDateTime date, List<OrderItem> items) {
         this.workerId = workerId;
