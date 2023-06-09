@@ -124,6 +124,8 @@ public class WorkerServiceImpl implements WorkerService {
                 .password(worker.getPassword())
                 .role(worker.getRole())
                 .gender(worker.getGender())
+                .goods(worker.getGoods())
+                .tasks(worker.getTasks())
                 .build();
     }
 
@@ -145,6 +147,8 @@ public class WorkerServiceImpl implements WorkerService {
                 .password(workerDTO.getPassword())
                 .role(workerDTO.getRole())
                 .gender(workerDTO.getGender())
+                .goods(workerDTO.getGoods())
+                .tasks(workerDTO.getTasks())
                 .build();
     }
 }

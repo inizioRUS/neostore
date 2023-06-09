@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.bebriki.bebriki.models.Post;
+import ru.bebriki.bebriki.models.Worker;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -22,5 +24,6 @@ public class TaskDTO {
     private Boolean isDone;
 
     private String postName;
+    private Worker worker;
 
 }

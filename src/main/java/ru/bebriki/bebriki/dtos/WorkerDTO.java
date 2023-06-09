@@ -1,14 +1,16 @@
 package ru.bebriki.bebriki.dtos;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.bebriki.bebriki.models.Good;
+import ru.bebriki.bebriki.models.Task;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Data
@@ -28,4 +30,6 @@ public class WorkerDTO {
     private String password;
     private String role;
     private String gender;
+    private List<Good> goods;
+    private List<Task> tasks = new ArrayList<>();
 }

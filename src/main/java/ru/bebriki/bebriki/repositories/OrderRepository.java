@@ -8,5 +8,5 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-    Optional<Order> findByData(LocalDateTime date);
+    Optional<Order> findByDate(LocalDateTime date);
 }

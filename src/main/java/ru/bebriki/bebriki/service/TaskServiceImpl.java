@@ -88,6 +88,7 @@ public class TaskServiceImpl implements TaskService {
                 .description(task.getDescription())
                 .difficulty(task.getDifficulty())
                 .isDone(task.getIsDone())
+                .worker(task.getWorker())
                 .build();
     }
 
@@ -100,6 +101,7 @@ public class TaskServiceImpl implements TaskService {
                 .description(taskDTO.getDescription())
                 .difficulty(taskDTO.getDifficulty())
                 .isDone(taskDTO.getIsDone())
+                .worker(taskDTO.getWorker())
                 .build();
     }
 
