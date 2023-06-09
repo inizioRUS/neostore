@@ -41,8 +41,8 @@ public class TaskController {
         taskService.deleteTaskById(id);
     }
 
-    @GetMapping("/taskByDifficulty/{difficulty}")
-    public List<Task> getTaskByDifficulty(@PathVariable("difficulty") int difficulty) throws TaskNotFoundException{
+    @GetMapping("/taskByDifficulty")
+    public List<Task> getTaskByDifficulty(@RequestParam("difficulty") int difficulty) throws TaskNotFoundException{
         return taskService.getTaskByDifficulty(difficulty);
     }
 

@@ -41,8 +41,8 @@ public class WorkerController {
         return workerService.updateWorker(id, workerDTO);
     }
 
-    @GetMapping("/worker/{login}")
-    public WorkerDTO getWorkerByLogin(@PathVariable String login) throws WorkerNotFoundException {
+    @GetMapping("/worker")
+    public WorkerDTO getWorkerByLogin(@RequestParam String login) throws WorkerNotFoundException {
         return workerService.getWorkerByLogin(login);
     }
 }

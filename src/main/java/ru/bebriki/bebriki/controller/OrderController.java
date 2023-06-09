@@ -31,8 +31,8 @@ public class OrderController {
         orderService.deleteOrder(id);
     }
 
-    @GetMapping("/{date}")
-    public List<OrderDTO> getOrderByDate(@PathVariable("date") LocalDateTime dateTime) throws OrderNotFoundException {
+    @GetMapping
+    public List<OrderDTO> getOrderByDate(@RequestParam LocalDateTime dateTime) throws OrderNotFoundException {
         return orderService.getOrderByDate(dateTime);
     }
 

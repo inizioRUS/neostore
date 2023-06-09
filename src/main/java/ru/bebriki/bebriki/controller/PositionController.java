@@ -25,8 +25,8 @@ public class PositionController {
         return positionService.getAllPositions();
     }
 
-    @GetMapping("/{name}")
-    public Position getPositionByName(@PathVariable("name") String name) {
+    @GetMapping
+    public Position getPositionByName(@RequestParam String name) {
         return positionService.getPositionByName(name);
     }
 
