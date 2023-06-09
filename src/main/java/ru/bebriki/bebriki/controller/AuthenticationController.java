@@ -12,6 +12,7 @@ import ru.bebriki.bebriki.service.AuthenticationService;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin
 public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;

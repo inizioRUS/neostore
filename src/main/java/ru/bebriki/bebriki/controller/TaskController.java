@@ -46,4 +46,29 @@ public class TaskController {
         return taskService.getTaskByDifficulty(difficulty);
     }
 
+    public int addBalance(Task task){
+        if(task.getDifficulty()==1) return 5;
+        if(task.getDifficulty()==2) return 15;
+        return 25;
+    }
+    public int decreaseBalance(Task task){
+        if(task.getDifficulty()==1) return 12;
+        if(task.getDifficulty()==2) return 7;
+        return 3;
+    }
+    public boolean isDone(){
+        if(this.isDone()) return true;
+        return false;
+    }
+    public void changeBalance(Task task){
+        if(task.getIsDone()){
+            task.getWorker().setBalance(task.getWorker().getBalance()+addBalance(task));
+        }
+        else task.getWorker().setBalance(task.getWorker().getBalance()-decreaseBalance(task));
+    }
+//    public static int getDayNumberOld(Date date) {
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(date);
+//        return cal.get(Calendar.DAY_OF_WEEK);
+//    }
 }
