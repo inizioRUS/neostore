@@ -35,7 +35,7 @@ public class Task {
 
     @Column(name = "worker_id")
     private Integer workerId;
-    
+
     @Column(name = "date")
     LocalDate date;
 
