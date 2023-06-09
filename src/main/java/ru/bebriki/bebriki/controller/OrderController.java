@@ -10,7 +10,8 @@ import ru.bebriki.bebriki.service.OrderService;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RestController("/orders")
+@RestController
+@RequestMapping("/orders")
 public class OrderController {
 
     @Autowired
