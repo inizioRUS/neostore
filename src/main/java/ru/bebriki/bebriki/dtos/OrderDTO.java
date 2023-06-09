@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.bebriki.bebriki.models.Good;
 import ru.bebriki.bebriki.models.OrderItem;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,6 @@ public class OrderDTO {
     private Integer id;
     private Integer workerId;
     private LocalDateTime date;
-    private List<OrderItem> items;
+    private List<Good> items;
 
 }

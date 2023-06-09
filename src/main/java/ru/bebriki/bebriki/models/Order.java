@@ -23,5 +23,13 @@ public class Order {
     private LocalDateTime date;
     @OneToMany(targetEntity = OrderItem.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "orderItemId", referencedColumnName = "id")
-    private List<OrderItem> items;
+    private List<Good> items;
+
+    public Order(Integer workerId, LocalDateTime date, List<Good> items) {
+        this.workerId = workerId;
+        this.date = date;
+        this.items = items;
+    }
+
+
 }

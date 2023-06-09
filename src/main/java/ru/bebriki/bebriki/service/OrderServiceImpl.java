@@ -1,5 +1,6 @@
 package ru.bebriki.bebriki.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import ru.bebriki.bebriki.controller.GoodController;
 import ru.bebriki.bebriki.dtos.OrderDTO;
 import ru.bebriki.bebriki.models.Good;
 import ru.bebriki.bebriki.models.Order;
+import ru.bebriki.bebriki.models.Worker;
 import ru.bebriki.bebriki.repositories.OrderRepository;
 import ru.bebriki.bebriki.responses.GoodResponse;
 
@@ -22,7 +24,8 @@ public class OrderServiceImpl implements OrderService {
     private GoodServiceImpl goodService;
     @Autowired
     private OrderRepository orderRepository;
-
+    @Autowired
+    private WorkerServiceImpl workerService;
 
     @Override
     public OrderDTO getOrderById(int id) throws OrderNotFoundException {
@@ -78,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
 
         if (orders.isEmpty()) throw new OrderNotFoundException("There is no such department like this");
 
-        for(Order o: orders){
+        for (Order o : orders) {
             ordersReturn.add(toDTO(o));
         }
 
@@ -90,21 +93,50 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.save(order);
     }
 
-    public boolean compareAmount(List<Good> list){
+    public boolean compareAmount(List<Good> list) {
 
         List<GoodResponse> listDb = null;
         List<GoodResponse> responseList = null;
-        for(Good g:list){
+        for (Good g : list) {
             responseList.add(GoodResponse.cast(g));
         }
-        for(GoodResponse g:responseList){
+        for (GoodResponse g : responseList) {
             listDb.add(goodService.findById(g.getId()));
         }
-        for(int i=0; i<list.size();i++){
-            if(list.get(i).getAmount()>listDb.get(i).getAmount()) return false;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getAmount() > listDb.get(i).getAmount()) return false;
         }
         return true;
     }
 
+    public boolean comparePrice(int totalPrice, int id) {
+
+
+        if (workerService.getWorkerById(id).getBalance() < totalPrice) return false;
+        return true;
+    }
+    @Transactional
+    public boolean placeOnOrder(List<Good> list, int id){
+        int totalPrice = 0;
+        for (Good g : list) {
+            totalPrice += g.getPrice() * g.getAmount();
+        }
+        if(compareAmount(list) && comparePrice(totalPrice, id)){
+            workerService.getWorkerById(id).setBalance(workerService.getWorkerById(id).getBalance()-totalPrice);
+            List<GoodResponse> listDb = null;
+            List<GoodResponse> responseList = null;
+            for (Good g : list) {
+                responseList.add(GoodResponse.cast(g));
+            }
+            for(int i=0;i<responseList.size();i++){
+                listDb.add(goodService.findById((responseList.get(i)).getId()));
+                listDb.get(i).setAmount(listDb.get(i).getAmount()-responseList.get(i).getAmount());
+            }
+            createOrder(new Order((Integer)id, LocalDateTime.now(), list));
+            return true;
+
+        }
+        return false;
+    }
 
 }
