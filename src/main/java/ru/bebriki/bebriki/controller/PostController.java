@@ -24,7 +24,7 @@ public class PostController {
         return postService.getAllPosts();
     }
 
-    @GetMapping
+    @GetMapping("/name")
     public Post getPostByName(@RequestParam(value = "name") String name) {
         return postService.getPostByName(name);
     }
