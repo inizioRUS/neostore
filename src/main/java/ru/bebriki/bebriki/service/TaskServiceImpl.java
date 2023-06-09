@@ -79,7 +79,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDTO toDTO(Task task) {
-        Post post = postRepository.findById(task.getPostId()).get();
+        Optional<Post> post = postRepository.findById(task.getPostId());
 
         return TaskDTO.builder()
                 .id(task.getId())
@@ -87,20 +87,20 @@ public class TaskServiceImpl implements TaskService {
                 .description(task.getDescription())
                 .difficulty(task.getDifficulty())
                 .isDone(task.getIsDone())
-                .worker(task.getWorker())
+                .postName(post.get().getName())
                 .build();
     }
 
     @Override
     public Task toTask(TaskDTO taskDTO) {
-        Optional<Post> post = postRepository.findById(taskDTO.getId());
+        Post post = postRepository.findByName(taskDTO.getPostName());
         return Task.builder()
                 .id(taskDTO.getId())
                 .name(taskDTO.getName())
                 .description(taskDTO.getDescription())
                 .difficulty(taskDTO.getDifficulty())
                 .isDone(taskDTO.getIsDone())
-                .worker(taskDTO.getWorker())
+                .postId(post.getId())
                 .build();
     }
 

@@ -27,7 +27,4 @@ public class TaskDTO {
 
     private String postName;
 
-    @ManyToOne
-    private Worker worker;
-
 }
