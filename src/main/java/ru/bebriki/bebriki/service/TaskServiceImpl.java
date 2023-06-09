@@ -28,7 +28,12 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task getTaskByDifficulty(Integer difficulty) {
-        return taskRepository.findByDifficulty(difficulty).orElse(null);
+        Optional<Task> task = taskRepository.findByDifficulty(difficulty);
+        if(task.isEmpty()){
+            throw new IllegalArgumentException("no such difficult task");
+        }
+        return task.get();
+
     }
 
     @Override
@@ -63,6 +68,10 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public void deleteTaskById(Integer id) {
+        Optional<Task> task = taskRepository.findById(id);
+        if (task.isEmpty()) {
+            throw new IllegalArgumentException("no such task");
+        }
         taskRepository.deleteById(id);
     }
 }
