@@ -45,4 +45,9 @@ public class WorkerController {
     public WorkerDTO getWorkerByLogin(@RequestParam String login) throws WorkerNotFoundException {
         return workerService.getWorkerByLogin(login);
     }
+
+    @GetMapping("/orderByBalance")
+    public List<WorkerDTO> findAllByOrderByBalanceDesc() {
+        return workerService.findAllByOrderByBalanceDesc();
+    }
 }

@@ -25,4 +25,5 @@ public interface WorkerService {
     WorkerDTO toDTO(Worker worker);
 
     Worker toWorker(WorkerDTO workerDTO);
+    List<WorkerDTO> findAllByOrderByBalanceDesc();
 }
