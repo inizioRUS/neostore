@@ -2,6 +2,8 @@ package ru.bebriki.bebriki.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.bebriki.bebriki.Errors.WorkerNotFoundException;
+import ru.bebriki.bebriki.dtos.WorkerDTO;
 import ru.bebriki.bebriki.models.Worker;
 import ru.bebriki.bebriki.service.WorkerService;
 
@@ -15,32 +17,32 @@ public class WorkerController {
     WorkerService workerService;
 
     @GetMapping
-    public List<Worker> getWorkers() {
+    public List<WorkerDTO> getWorkers() {
         return workerService.getWorkers();
     }
 
     @GetMapping("/worker/id/{id}")
-    public Worker getWorkerById(@PathVariable("id") int id) {
+    public WorkerDTO getWorkerById(@PathVariable("id") int id) throws WorkerNotFoundException {
         return workerService.getWorkerById(id);
     }
 
     @PostMapping
-    public Worker addWorker(@RequestBody Worker worker) {
-        return workerService.addWorker(worker);
+    public WorkerDTO addWorker(@RequestBody WorkerDTO workerDTO) {
+        return workerService.addWorker(workerDTO);
     }
 
     @DeleteMapping("/worker/{id}")
-    public void deleteWorkerById(@PathVariable Integer id) {
+    public void deleteWorkerById(@PathVariable Integer id) throws WorkerNotFoundException {
         workerService.deleteWorkerById(id);
     }
 
     @PutMapping("/worker/{id}")
-    public Worker updateWorker(@PathVariable Integer id, @RequestBody Worker worker) {
-        return workerService.updateWorker(id, worker);
+    public WorkerDTO updateWorker(@PathVariable Integer id, @RequestBody WorkerDTO workerDTO) {
+        return workerService.updateWorker(id, workerDTO);
     }
 
     @GetMapping("/worker/{login}")
-    public Worker getWorkerByLogin(@PathVariable String login) {
+    public WorkerDTO getWorkerByLogin(@PathVariable String login) throws WorkerNotFoundException {
         return workerService.getWorkerByLogin(login);
     }
 }

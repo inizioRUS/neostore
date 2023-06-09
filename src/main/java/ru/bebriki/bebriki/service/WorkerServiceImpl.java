@@ -2,6 +2,7 @@ package ru.bebriki.bebriki.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.bebriki.bebriki.Errors.WorkerNotFoundException;
 import ru.bebriki.bebriki.dtos.WorkerDTO;
 import ru.bebriki.bebriki.models.Position;
 import ru.bebriki.bebriki.models.Post;
@@ -24,74 +25,84 @@ public class WorkerServiceImpl implements WorkerService {
     private PostRepository postRepository;
 
     @Override
-    public List<Worker> getWorkers() {
-        return workerRepository.findAll();
+    public List<WorkerDTO> getWorkers() {
+        return workerRepository.findAll().stream()
+                .map(this::toDTO)
+                .toList();
     }
 
     @Override
-    public Worker getWorkerById(Integer id) {
+    public WorkerDTO getWorkerById(Integer id) {
         Optional<Worker> worker = workerRepository.findById(id);
         if (worker.isEmpty()) {
             throw new IllegalArgumentException("no such worker");
         }
-        return worker.get();
+        return toDTO(worker.get());
     }
 
     @Override
-    public void deleteWorkerById(Integer id) {
+    public void deleteWorkerById(Integer id) throws WorkerNotFoundException {
+        if (workerRepository.findById(id).isEmpty()) {
+            throw new WorkerNotFoundException("no such user");
+        }
         workerRepository.deleteById(id);
     }
 
     @Override
-    public Worker updateWorker(Integer id, Worker worker) {
-        Worker workerDB = getWorkerById(id);
-        if (Objects.nonNull(worker.getName()) && !"".equalsIgnoreCase(worker.getName())) {
-            workerDB.setName(worker.getName());
+    public WorkerDTO updateWorker(Integer id, WorkerDTO workerDTO) {
+        WorkerDTO workerDB = getWorkerById(id);
+        if (Objects.nonNull(workerDTO.getName()) && !"".equalsIgnoreCase(workerDTO.getName())) {
+            workerDB.setName(workerDTO.getName());
         }
-        if (Objects.nonNull(worker.getSurname()) && !"".equalsIgnoreCase(worker.getSurname())) {
-            workerDB.setSurname(worker.getSurname());
+        if (Objects.nonNull(workerDTO.getSurname()) && !"".equalsIgnoreCase(workerDTO.getSurname())) {
+            workerDB.setSurname(workerDTO.getSurname());
         }
-        if (Objects.nonNull(worker.getSecondName()) && !"".equalsIgnoreCase(worker.getSecondName())) {
-            workerDB.setSecondName(worker.getSecondName());
+        if (Objects.nonNull(workerDTO.getSecondName()) && !"".equalsIgnoreCase(workerDTO.getSecondName())) {
+            workerDB.setSecondName(workerDTO.getSecondName());
         }
-        if (Objects.nonNull(worker.getLogin()) && !"".equalsIgnoreCase(worker.getLogin())) {
-            workerDB.setLogin(worker.getLogin());
+        if (Objects.nonNull(workerDTO.getLogin()) && !"".equalsIgnoreCase(workerDTO.getLogin())) {
+            workerDB.setLogin(workerDTO.getLogin());
         }
-        if (Objects.nonNull(worker.getPostId()) && worker.getPostId() != 0) {
-            workerDB.setPostId(worker.getPostId());
+        if (Objects.nonNull(workerDTO.getPost()) && !"".equalsIgnoreCase(workerDTO.getPost())) {
+            workerDB.setPost(workerDTO.getPost());
         }
-        if (Objects.nonNull(worker.getPositionId()) && worker.getPositionId() != 0) {
-            workerDB.setPositionId(worker.getPositionId());
+        if (Objects.nonNull(workerDTO.getPosition()) && !"".equalsIgnoreCase(workerDTO.getPosition())) {
+            workerDB.setPosition(workerDTO.getPosition());
         }
-        if (Objects.nonNull(worker.getAge()) && worker.getAge() != 0) {
-            workerDB.setAge(worker.getAge());
+        if (Objects.nonNull(workerDTO.getAge()) && workerDTO.getAge() != 0) {
+            workerDB.setAge(workerDTO.getAge());
         }
-        if (Objects.nonNull(worker.getAge()) && worker.getAge() != 0) {
-            workerDB.setAge(worker.getAge());
+        if (Objects.nonNull(workerDTO.getAge()) && workerDTO.getAge() != 0) {
+            workerDB.setAge(workerDTO.getAge());
         }
-        if (Objects.nonNull(worker.getPhone()) && !"".equalsIgnoreCase(worker.getPhone())) {
-            workerDB.setPhone(worker.getPhone());
+        if (Objects.nonNull(workerDTO.getPhone()) && !"".equalsIgnoreCase(workerDTO.getPhone())) {
+            workerDB.setPhone(workerDTO.getPhone());
         }
-        if (Objects.nonNull(worker.getBalance()) && worker.getBalance() != 0) {
-            workerDB.setBalance(worker.getBalance());
+        if (Objects.nonNull(workerDTO.getBalance()) && workerDTO.getBalance() != 0) {
+            workerDB.setBalance(workerDTO.getBalance());
         }
-        if (Objects.nonNull(worker.getPassword()) && !"".equalsIgnoreCase(worker.getPassword())) {
-            workerDB.setPhone(worker.getPassword());
+        if (Objects.nonNull(workerDTO.getPassword()) && !"".equalsIgnoreCase(workerDTO.getPassword())) {
+            workerDB.setPhone(workerDTO.getPassword());
         }
-        if (Objects.nonNull(worker.getRole()) && !"".equalsIgnoreCase(worker.getRole())) {
-            workerDB.setRole(worker.getRole());
+        if (Objects.nonNull(workerDTO.getRole()) && !"".equalsIgnoreCase(workerDTO.getRole())) {
+            workerDB.setRole(workerDTO.getRole());
         }
-        return workerRepository.save(workerDB);
+        workerRepository.save(toWorker(workerDB));
+        return workerDB;
     }
 
     @Override
-    public Worker addWorker(Worker worker) {
-        return workerRepository.save(worker);
+    public WorkerDTO addWorker(WorkerDTO workerDTO) {
+        workerRepository.save(toWorker(workerDTO));
+        return workerDTO;
     }
 
     @Override
-    public Worker getWorkerByLogin(String login) {
-        return workerRepository.findByLogin(login).orElse(null);
+    public WorkerDTO getWorkerByLogin(String login) throws WorkerNotFoundException {
+        if (workerRepository.findByLogin(login).isEmpty()) {
+            throw new WorkerNotFoundException("nu such user");
+        }
+        return toDTO(workerRepository.findByLogin(login).get());
     }
 
     @Override
@@ -113,6 +124,27 @@ public class WorkerServiceImpl implements WorkerService {
                 .password(worker.getPassword())
                 .role(worker.getRole())
                 .gender(worker.getGender())
+                .build();
+    }
+
+    @Override
+    public Worker toWorker(WorkerDTO workerDTO) {
+        Position position = positionRepository.findByName(workerDTO.getPosition());
+        Post post = postRepository.findByName(workerDTO.getPost());
+        return Worker.builder()
+                .id(workerDTO.getId())
+                .name(workerDTO.getName())
+                .surname(workerDTO.getSurname())
+                .secondName(workerDTO.getSecondName())
+                .login(workerDTO.getLogin())
+                .postId(post.getId())
+                .positionId(position.getId())
+                .age(workerDTO.getAge())
+                .phone(workerDTO.getPhone())
+                .balance(workerDTO.getBalance())
+                .password(workerDTO.getPassword())
+                .role(workerDTO.getRole())
+                .gender(workerDTO.getGender())
                 .build();
     }
 }
