@@ -4,6 +4,8 @@ from telegram import ForceReply, Update, InlineKeyboardButton, InlineKeyboardMar
     ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import Updater, CommandHandler, CallbackContext, MessageHandler, Filters, CallbackQueryHandler
 import random
+import requests
+import json
 
 # Enable logging
 logging.basicConfig(
@@ -26,13 +28,13 @@ reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
 
 def start(update: Update, context: CallbackContext) -> None:
-    if not context.chat_data["islogin"]:
+    if "islogin" not in context.chat_data:
         context.chat_data["islogin"] = False
     context.chat_data["CheckLogin"] = False
     user = update.effective_user
     update.message.reply_html(
         rf"""Привет {user.mention_html()}!
-        Это бот для отслеживания своих задач, пожалйста авторизуйся""",
+        Это бот для отслеживания твоих задач, пожалуйста авторизуйся""",
         reply_markup=reply_markup
     )
 
@@ -40,12 +42,13 @@ def start(update: Update, context: CallbackContext) -> None:
 def login(update: Update, context: CallbackContext):
     if context.chat_data["islogin"]:
         update.message.reply_html(
-            rf"""Вы уже авторизываны""",
+            rf"""Вы уже авторизированы""",
         )
-    context.chat_data["CheckLogin"] = True
-    update.message.reply_html(
-        rf"""Введите логин""",
-    )
+    else:
+        context.chat_data["CheckLogin"] = True
+        update.message.reply_html(
+            rf"""Введите логин""",
+        )
 
 
 def logout(update: Update, context: CallbackContext):
@@ -58,31 +61,54 @@ def logout(update: Update, context: CallbackContext):
         update.message.reply_html(
             rf"""Успешный выход""",
         )
+    context.chat_data["CheckLogin"] = False
 
 
 def getinfo(update: Update, context: CallbackContext):
-    if context.chat_data["islogin"]:
+    if not context.chat_data["islogin"]:
         update.message.reply_html(
             rf"""Пожалуйста авторизуйтесь""",
         )
     else:
-        pass
+        data = json.loads(
+            requests.get(f"http://5.101.51.166:8080/workers/worker/id/{int(context.chat_data['id'])}").text)
+        update.message.reply_html(
+            rf"""Привет {data['surname']} {data['name']} {data['secondName']} ({data['login']}, ваш баланс -  {data['balance']})""",
+        )
+    context.chat_data["CheckLogin"] = False
 
 
 def gettasks(update: Update, context: CallbackContext):
-    if context.chat_data["islogin"]:
+    if not context.chat_data["islogin"]:
         update.message.reply_html(
             rf"""Пожалуйста авторизуйтесь""",
         )
     else:
-        pass
+        print(context.chat_data['id'])
+        task = \
+            json.loads(requests.get(f"http://5.101.51.166:8080/workers/worker/id/{int(context.chat_data['id'])}").text)[
+                'task']
+        if task is None:
+            update.message.reply_html(
+                rf"""Задачи нет""",
+            )
+        else:
+            update.message.reply_html(
+                rf"""Какая-та задача есть """,
+            )
+    context.chat_data["CheckLogin"] = False
 
 
 def checkText(update: Update, context: CallbackContext):
     if context.chat_data["CheckLogin"]:
-        if update.message.text:
-            # запрос update.message.text
-            user = "fafaf"
+        ans = requests.get(f"http://5.101.51.166:8080/workers/worker?login={update.message.text}")
+        print(ans)
+        if 'id' in json.loads(ans.text):
+            context.chat_data['id'] = json.loads(ans.text)['id']
+            context.chat_data["islogin"] = True
+            update.message.reply_html(
+                rf"""Вы авторизированны""",
+            )
         else:
             update.message.reply_html(
                 rf"""Неверный логин""",
@@ -95,11 +121,11 @@ def checkText(update: Update, context: CallbackContext):
 def help_command(update: Update, context: CallbackContext):
     update.message.reply_html(
         rf"""
-/login
-/logout
-/getinfo
-/gettasks""",
-)
+/login - вход
+/logout - выход
+/getinfo - информация о человеке
+/gettasks - информация о задаче""",
+    )
 
 
 def main() -> None:
