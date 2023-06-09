@@ -1,0 +1,76 @@
+.signin {
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    gap: 20px;
+
+    width: 683px;
+    height: 437px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.5);
+    border-radius: 25px;
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.img {
+    width: 583px;
+    height: 104px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.input {
+    width: 433px;
+    height: 50px;
+    padding-left: 30px;
+    background: #FFFFFF;
+    box-shadow: inset 0px 0px 5px #281300;
+    border-radius: 20px 5px;
+    border: none;
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 50px;
+    gap: 10px;
+
+    width: 208px;
+    height: 74px;
+
+    background: linear-gradient(124.86deg, #FFD500 11.2%, #FF007A 85.95%);
+    border-radius: 25px;
+    border: none;
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    
+    color: #FFFFFF;
+}
+
+.button:hover {
+    cursor: pointer;
+}

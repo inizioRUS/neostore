@@ -8,6 +8,7 @@ import HeroesPage from './pages/HeroesPage';
 import StorePage from './pages/StorePage';
 import './css/reset.css';
 import './css/main.css';
+import SignInPage from './pages/SignInPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/store' element={<StorePage />}/>
           <Route path='/heroes' element={<HeroesPage />}/>
           <Route path='/profile' element={<ProfilePage />}/>
+          <Route path='/signin' element={<SignInPage />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
     </>
