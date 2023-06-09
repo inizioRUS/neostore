@@ -57,7 +57,7 @@ public class GoodController {
     }
 
 
-    @GetMapping("/goodByTittle/{title}")
+    @GetMapping("/goodByTittle")
     public ResponseEntity<?> findByTitle(@RequestParam String title) {
         List<GoodResponse> goods = goodService.findByTitle(title);
 
@@ -66,7 +66,7 @@ public class GoodController {
 
         return ResponseEntity.ok(goods);
     }
-    @GetMapping("/goodByCategory/{category}")
+    @GetMapping("/goodByCategory")
     public ResponseEntity<?> findByCategory(@RequestParam String category) {
         List<GoodResponse> goods = goodService.findByCategory(category);
 
@@ -123,13 +123,13 @@ public class GoodController {
 
         return ResponseEntity.ok(pizza);
     }
-    @DeleteMapping("")
+    @DeleteMapping("/delete")
     //   @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteByTitle(@RequestParam String title) {
         List<GoodResponse> pizzas = goodService.deleteByTitle(title);
 
         if (pizzas.size() == 0)
-            return ResponseEntity.status(404).body(new ErrorMessageResponce("Pizza(s) with this title not found"));
+            return ResponseEntity.status(404).body(new ErrorMessageResponce("product with this title not found"));
 
         return ResponseEntity.ok(pizzas);
     }
