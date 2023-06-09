@@ -22,6 +22,6 @@ public class OrderDTO {
     private Integer id;
     private Integer workerId;
     private LocalDateTime date;
-    private List<Good> goods;
+    private List<OrderItem> items;
 
 }

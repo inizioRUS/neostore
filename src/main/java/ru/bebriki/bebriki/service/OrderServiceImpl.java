@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
         return OrderDTO.builder()
                 .id(orderDB.getId())
                 .date(orderDB.getDate())
-                .goods(orderDB.getGoods())
+                .items(orderDB.getItems())
                 .workerId(orderDB.getWorkerId())
                 .build();
     }
@@ -56,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
         return Order.builder()
                 .id(orderDTO.getId())
                 .date(orderDTO.getDate())
-                .goods(orderDTO.getGoods())
+                .items(orderDTO.getItems())
                 .workerId(orderDTO.getWorkerId())
                 .build();
     }
