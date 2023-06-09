@@ -20,5 +20,5 @@ public interface OrderService {
 
     List<OrderDTO> getOrderByDate(LocalDateTime dateTime) throws OrderNotFoundException;
 
-    Order createOrder(Order order);
+    OrderDTO createOrder(OrderDTO orderDTO);
 }

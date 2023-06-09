@@ -31,6 +31,6 @@ public class Good {
     private String imageURL;
     @Column(name = "amount")
     private Integer amount;
-    @ManyToMany(mappedBy = "goods", fetch = FetchType.LAZY)
-    List<Worker> workers;
+//    @ManyToMany(mappedBy = "goods", fetch = FetchType.LAZY)
+//    List<Worker> workers;
 }

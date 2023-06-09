@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.bebriki.bebriki.models.Good;
+import ru.bebriki.bebriki.models.Order;
 import ru.bebriki.bebriki.models.Task;
 
 import java.util.ArrayList;
@@ -31,8 +32,9 @@ public class WorkerDTO {
     private String password;
     private String role;
     private String gender;
-    private List<Good> goods;
+    private List<Order> orders;
     private Task task;
+    private String imageURL;
 
 
 }

@@ -90,8 +90,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order createOrder(Order order) {
-        return orderRepository.save(order);
+    public OrderDTO createOrder(OrderDTO orderDTO) {
+        orderRepository.save(toOrder(orderDTO));
+        return orderDTO;
     }
 
     public boolean compareAmount(List<Good> list) {
@@ -139,7 +140,7 @@ public class OrderServiceImpl implements OrderService {
                 orderItems.add(new OrderItem(good.getAmount(), good.getPrice() * good.getAmount(), good.getId()));
             }
 
-            createOrder(new Order((Integer)id, LocalDateTime.now(), orderItems));
+            createOrder(new OrderDTO((Integer)id, LocalDateTime.now(), orderItems));
             return true;
 
         }

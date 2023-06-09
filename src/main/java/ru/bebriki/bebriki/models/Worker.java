@@ -42,14 +42,11 @@ public class Worker {
     private String role;
     @Column(name = "gender")
     private String gender;
+    @Column(name = "imageURL")
+    private String imageURL;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "wishes", joinColumns = {
-            @JoinColumn(name = "worker_id", referencedColumnName = "id")
-    }, inverseJoinColumns = {
-            @JoinColumn(name = "good_id", referencedColumnName = "id")
-    })
-    List<Good> goods;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "worker")
+    List<Order> orders;
 
     @Column(name = "taskId")
     private Integer taskId;

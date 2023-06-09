@@ -25,11 +25,15 @@ public class Order {
     @JoinColumn(name = "itemId", referencedColumnName = "id")
     private List<OrderItem> items;
 
-    public Order(Integer workerId, LocalDateTime date, List<OrderItem> items) {
-        this.workerId = workerId;
-        this.date = date;
-        this.items = items;
-    }
+    @ManyToOne
+    @JoinColumn(name="my_worker_id")
+    private Worker worker;
+
+//    public Order(Integer workerId, LocalDateTime date, List<OrderItem> items) {
+//        this.workerId = workerId;
+//        this.date = date;
+//        this.items = items;
+//    }
 
 
 }

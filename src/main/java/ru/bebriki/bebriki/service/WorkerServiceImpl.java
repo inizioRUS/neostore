@@ -91,6 +91,9 @@ public class WorkerServiceImpl implements WorkerService {
         if (Objects.nonNull(workerDTO.getRole()) && !"".equalsIgnoreCase(workerDTO.getRole())) {
             workerDB.setRole(workerDTO.getRole());
         }
+        if (Objects.nonNull(workerDTO.getImageURL()) && !"".equalsIgnoreCase(workerDTO.getImageURL())) {
+            workerDB.setRole(workerDTO.getRole());
+        }
         workerRepository.save(toWorker(workerDB));
         return workerDB;
     }
@@ -129,7 +132,8 @@ public class WorkerServiceImpl implements WorkerService {
                 .password(worker.getPassword())
                 .role(worker.getRole())
                 .gender(worker.getGender())
-                .goods(worker.getGoods())
+                .orders(worker.getOrders())
+                .imageURL(worker.getImageURL())
                 .task(task)
                 .build();
     }
@@ -152,8 +156,9 @@ public class WorkerServiceImpl implements WorkerService {
                 .password(workerDTO.getPassword())
                 .role(workerDTO.getRole())
                 .gender(workerDTO.getGender())
-                .goods(workerDTO.getGoods())
+                .orders(workerDTO.getOrders())
                 .taskId(workerDTO.getTask().getId())
+                .imageURL(workerDTO.getImageURL())
                 .build();
     }
 }
