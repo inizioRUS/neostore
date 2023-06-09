@@ -57,12 +57,21 @@ public class GoodController {
     }
 
 
-    @GetMapping("/{title}")
+    @GetMapping("/goodByTittle/{title}")
     public ResponseEntity<?> findByTitle(@RequestParam String title) {
         List<GoodResponse> goods = goodService.findByTitle(title);
 
         if (goods.size() == 0)
             return ResponseEntity.status(404).body(new ErrorMessageResponce("Product with this title is not found"));
+
+        return ResponseEntity.ok(goods);
+    }
+    @GetMapping("/goodByCategory/{category}")
+    public ResponseEntity<?> findByCategory(@RequestParam String category) {
+        List<GoodResponse> goods = goodService.findByCategory(category);
+
+        if (goods.size() == 0)
+            return ResponseEntity.status(404).body(new ErrorMessageResponce("Product with this category is not found"));
 
         return ResponseEntity.ok(goods);
     }
