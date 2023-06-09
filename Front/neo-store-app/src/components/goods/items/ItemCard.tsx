@@ -3,9 +3,10 @@ import '../../../css/item.css'
 import test from '../../../assets/images/skala.jpeg';
 import coin from '../../../assets/icons/NeoCoin.svg';
 import storage from '../../../assets/scripts/functions/storage';
+import { Good } from '../../../assets/scripts/models/good';
 
 interface ItemCardProps {
-    
+    product : Good
 }
  
 interface ItemCardState {
@@ -13,24 +14,26 @@ interface ItemCardState {
 }
  
 class ItemCard extends React.Component<ItemCardProps, ItemCardState> {
+    constructor(props : ItemCardProps){
+        super(props)
+    }
+
     state = {
 
     }
     render() { 
         return (
             <div className='item-card'>
-                <img src={test} alt="" />
+                <img src={this.props.product.imageURL} alt="" />
                 <div className='item-info'>
-                    <h2>Вилка и ложка</h2>
-                    <div className='price-box'>228 <img src={coin} alt="" /></div>
-                    {
-                        storage.CheckLogin() ? 
+                    <h2>{this.props.product.title}</h2>
+                    <div className='price-box'>{this.props.product.price}<img src={coin} alt="" />
+                    {storage.CheckLogin() ? 
                             <div className='item-actions'>
                             <button className='item-button bright'>В корзину</button>
-                            <button className='item-button bright'>Избранное</button>
                             </div>
-                        : <div></div>
-                    }
+                        : <div></div>}
+                    </div>
                     
                 </div>
             </div>

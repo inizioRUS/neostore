@@ -30,6 +30,10 @@
     width: 100%;
 }
 
+.item-info h2{
+    font-size: 30px;
+}
+
 .price-box{
     display: flex;
     flex-direction: row;
@@ -52,7 +56,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 15px;
     gap: 15px;
 
     width: 100%;

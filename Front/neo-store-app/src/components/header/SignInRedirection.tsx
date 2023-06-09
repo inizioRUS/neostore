@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 
 interface SignInRedirectionProps {
     
@@ -15,7 +16,7 @@ class SignInRedirection extends React.Component<SignInRedirectionProps, SignInRe
     render() { 
         return (
             <div className='outer-user-menu'>
-              <button className='bright'>Войти</button>
+                <Link to='/signin'><button className='bright'>Войти</button></Link>
             </div>
         );
     }

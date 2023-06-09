@@ -1,6 +1,8 @@
 import React, {ChangeEvent, Component} from 'react';
 import logo from "../assets/images/BlackNeoStore.png"
 import "../css/signin.css"
+import storage from '../assets/scripts/functions/storage';
+import { Navigate } from 'react-router-dom';
 
 interface ProfileProps {
 
@@ -45,7 +47,7 @@ class SignInPage extends Component<ProfileProps, ProfileState> {
                            onChange={this.handlePasswordChange}
                            required>
                     </input>
-                    <button className='button'>Войти</button>
+                    <button type='submit' className='button'>Войти</button>
                 </form>
             </div>
         );
@@ -84,6 +86,8 @@ class SignInPage extends Component<ProfileProps, ProfileState> {
         .then((response) => response.json())
         .then((data) => {
             console.log(data)
+            storage.SetLogin(parseInt(data));
+            window.location.replace("/store");
         })
         .catch((error) => console.log(error))
     }
