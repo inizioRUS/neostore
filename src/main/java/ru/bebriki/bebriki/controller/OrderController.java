@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bebriki.bebriki.Errors.OrderNotFoundException;
 import ru.bebriki.bebriki.dtos.OrderDTO;
+import ru.bebriki.bebriki.models.Good;
 import ru.bebriki.bebriki.models.Order;
 import ru.bebriki.bebriki.service.OrderService;
 
@@ -43,5 +44,18 @@ public class OrderController {
         return orderService.createOrder(orderDTO);
     }
 
+    @PostMapping("/pay")
+    public boolean placeOnOrder(@RequestParam List<Good> list, @PathVariable int id){
+        return orderService.placeOnOrder(list, id);
+    }
+
+    @GetMapping("/compareAmount")
+    public boolean compareAmount(List<Good> list){
+        return orderService.compareAmount(list);
+    }
+    @GetMapping("/comparePrice")
+    public boolean comparePrice(int totalPrice, int id){
+        return orderService.comparePrice(totalPrice, id);
+    }
 
 }

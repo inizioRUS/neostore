@@ -44,6 +44,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO toDTO(Order order) {
+
+        System.out.println("apappapappapa" + order);
         Order orderDB = orderRepository.findById(order.getId()).get();
         return OrderDTO.builder()
                 .id(orderDB.getId())
@@ -99,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(toOrder(orderDTO));
         return orderDTO;
     }
-
+    @Override
     public boolean compareAmount(List<Good> list) {
 
         List<GoodResponse> listDb = null;
@@ -115,13 +117,14 @@ public class OrderServiceImpl implements OrderService {
         }
         return true;
     }
-
+    @Override
     public boolean comparePrice(int totalPrice, int id) {
 
 
         if (workerService.getWorkerById(id).getBalance() < totalPrice) return false;
         return true;
     }
+    @Override
     @Transactional
     public boolean placeOnOrder(List<Good> list, int id){
         int totalPrice = 0;
@@ -140,12 +143,10 @@ public class OrderServiceImpl implements OrderService {
                 listDb.add(goodService.findById((responseList.get(i)).getId()));
                 listDb.get(i).setAmount(listDb.get(i).getAmount()-responseList.get(i).getAmount());
             }
-
+            OrderDTO order = new OrderDTO((Integer)id, LocalDateTime.now(), null);
             for (Good good : list) {
-                orderItems.add(new OrderItem(good.getAmount(), good.getPrice() * good.getAmount(), good.getId()));
+                orderItems.add(new OrderItem(good.getAmount(), good.getPrice() * good.getAmount(), good.getId(),order.getId()));
             }
-
-            createOrder(new OrderDTO((Integer)id, LocalDateTime.now(), orderItems));
             return true;
 
         }

@@ -2,6 +2,7 @@ package ru.bebriki.bebriki.service;
 
 import ru.bebriki.bebriki.Errors.OrderNotFoundException;
 import ru.bebriki.bebriki.dtos.OrderDTO;
+import ru.bebriki.bebriki.models.Good;
 import ru.bebriki.bebriki.models.Order;
 
 import java.time.LocalDateTime;
@@ -21,4 +22,7 @@ public interface OrderService {
     List<OrderDTO> getOrderByDate(LocalDateTime dateTime) throws OrderNotFoundException;
 
     OrderDTO createOrder(OrderDTO orderDTO);
+    public boolean placeOnOrder(List<Good> list, int id);
+    public boolean compareAmount(List<Good> list);
+    public boolean comparePrice(int totalPrice, int id);
 }
