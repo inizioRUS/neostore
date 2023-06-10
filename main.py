@@ -84,17 +84,20 @@ def gettasks(update: Update, context: CallbackContext):
             rf"""Пожалуйста авторизуйтесь""",
         )
     else:
-        print(context.chat_data['id'])
-        task = \
-            json.loads(requests.get(f"http://5.101.51.166:8080/workers/worker/id/{int(context.chat_data['id'])}").text)[
-                'task']
-        if task is None:
+        taskac = None
+        tasks = \
+            json.loads(requests.get(f"http://5.101.51.166:8080/tasks").text)
+        for task in tasks:
+            if task['workerId'] == context.chat_data['id']:
+                taskac = task
+        if taskac is None:
             update.message.reply_html(
                 rf"""Задачи нет""",
             )
         else:
+            print(taskac)
             update.message.reply_html(
-                rf"""Какая-та задача есть """,
+                f"""Название задачи {taskac['name']}, \n Описание задачи  {taskac['description']} \n Сложность {taskac['difficulty']}"""
             )
     context.chat_data["CheckLogin"] = False
 
