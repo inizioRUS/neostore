@@ -10,6 +10,7 @@ import './css/reset.css';
 import './css/main.css';
 import SignInPage from './pages/SignInPage';
 import ItemPage from './pages/ItemPage';
+import storage from './assets/scripts/functions/storage';
 
 function App() {
   return (
@@ -18,9 +19,10 @@ function App() {
         <Routes>
           <Route path='/store' element={<StorePage />}/>
           <Route path='/heroes' element={<HeroesPage />}/>
-          <Route path='/profile' element={<ProfilePage />}/>
+          <Route path='/profile' element={<ProfilePage userId={storage.GetLogin()}/>}/>
           <Route path='/signin' element={<SignInPage />} />
           <Route path='/item' element={<ItemPage />} />
+          <Route path='/myprofile' element={<ProfilePage userId={storage.GetLogin()}/>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
     </>

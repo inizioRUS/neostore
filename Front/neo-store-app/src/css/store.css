@@ -28,8 +28,6 @@
 }
 
 .search-filter button{
-
-    background: linear-gradient(124.86deg, #FFD500 11.2%, #FF007A 85.95%);
     border-radius: 0px 25px 25px 0px;
 
     padding: 5px 20px;
@@ -58,4 +56,36 @@
     flex-wrap: wrap;
     padding: 50px;
     gap: 30px;
+}
+
+.category-filter {
+    position: relative;
+}
+
+.category-dropdown {
+    display: flex;
+    top: 100%;
+    left: 0;
+    padding: -10px;
+    z-index: 100;
+}
+
+.category-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+}
+
+.category-dropdown li {
+    padding: 5px 10px;
+}
+
+
+.category-filter .expand-icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+.category-filter.expanded .expand-icon {
+    transform: rotate(180deg);
 }

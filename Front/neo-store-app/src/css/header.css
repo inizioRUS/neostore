@@ -91,7 +91,12 @@ header{
 .user-info{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 10px;
+}
+
+.user-info h3{
+    font-size: 25px;
 }
 
 .user-buttons{

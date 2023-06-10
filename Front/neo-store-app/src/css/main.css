@@ -14,7 +14,10 @@
 body{
     font-size: 16px;
     font-family: 'Inter';
-    background-color: #F5F4FF;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background: linear-gradient(157.97deg, rgba(255, 183, 17, 0.5) 15.89%, rgba(245, 244, 255, 0.5) 53.01%, rgba(255, 1, 122, 0.5) 90.91%), #FFFFFF;
+    /*background-image: url(../assets/images/Background.png);*/
 }
 
 .container{
@@ -39,6 +42,14 @@ body{
 .bright{
     color: white;
     background: linear-gradient(124.86deg, #FFD500 11.2%, #FF007A 85.95%), #FFFFFF;
+    border: none;
+
+    transition: 0.3s ease;
+}
+
+.bright:hover{
+    background: linear-gradient(124.86deg, #ffe97a 11.2%, #ff78b9 85.95%), #FFFFFF;
+    border: 1px white;
 }
 
 .expand{

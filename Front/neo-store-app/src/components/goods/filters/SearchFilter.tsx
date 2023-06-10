@@ -17,7 +17,7 @@ class SearchFilter extends React.Component<SearchFilterProps, SearchFilterState>
         return (
             <div className='search-filter'>
                 <input type="search" className='search-field' placeholder='Поиск по товарам...'/>
-                <button><img src={glass} alt="" /></button>
+                <button className='bright'><img src={glass} alt="" /></button>
             </div>
         );
     }

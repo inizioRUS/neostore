@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 30px;
     gap: 10px;
 
     width: 365px;
@@ -45,6 +45,7 @@
     font-size: 22px;
     font-weight: 500;
 
+    width: 100%;
     background: #150F1E;
     border-radius: 10px;
 }

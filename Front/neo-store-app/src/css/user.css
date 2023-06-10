@@ -1,0 +1,34 @@
+.user-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px 21px;
+    gap: 10px;
+    width: 100%;
+
+    background: #150F1E;
+    border-radius: 30px;
+}
+
+.pic-block{
+    width: 25%;
+}
+
+.pic-block img{
+    width: 100%;
+    border-radius: 20px;
+}
+
+.main-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 10px;
+}
+
+.main-info h2{
+    color: white;
+    font-size: 30px;
+}
