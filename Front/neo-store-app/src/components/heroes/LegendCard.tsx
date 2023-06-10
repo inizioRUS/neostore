@@ -3,7 +3,8 @@ import test from '../../assets/images/skala.jpeg';
 
 interface LegendCardProps {
     place : number;
-    name: string
+    name: string;
+    src: string;
 }
  
 interface LegendCardState {
@@ -35,7 +36,7 @@ class LegendCard extends React.Component<LegendCardProps, LegendCardState> {
     render() { 
         return (
             <div className={'legend-card down-list ' + this.classPlace}>
-                <img src={test} alt="" />
+                <img src={this.props.src} alt="" />
                 {this.props.name}
             </div>
         );
