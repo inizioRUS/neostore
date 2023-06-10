@@ -4,14 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.bebriki.bebriki.Errors.WorkerNotFoundException;
 import ru.bebriki.bebriki.dtos.WorkerDTO;
-import ru.bebriki.bebriki.models.Position;
-import ru.bebriki.bebriki.models.Post;
-import ru.bebriki.bebriki.models.Task;
-import ru.bebriki.bebriki.models.Worker;
-import ru.bebriki.bebriki.repositories.PositionRepository;
-import ru.bebriki.bebriki.repositories.PostRepository;
-import ru.bebriki.bebriki.repositories.TaskRepository;
-import ru.bebriki.bebriki.repositories.WorkerRepository;
+import ru.bebriki.bebriki.models.*;
+import ru.bebriki.bebriki.repositories.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +21,9 @@ public class WorkerServiceImpl implements WorkerService {
     private PostRepository postRepository;
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public List<WorkerDTO> getWorkers() {
@@ -128,7 +125,8 @@ public class WorkerServiceImpl implements WorkerService {
         Position position = positionRepository.findById(worker.getPositionId()).get();
         Post post = postRepository.findById(worker.getPostId()).get();
         Task task = taskRepository.findByWorkerId(worker.getId());
-
+        List<Order> order = orderRepository.findOrdersByWorkerId(worker.getId());
+        
         return WorkerDTO.builder()
                 .id(worker.getId())
                 .name(worker.getName())
@@ -143,7 +141,7 @@ public class WorkerServiceImpl implements WorkerService {
                 .password(worker.getPassword())
                 .role(worker.getRole())
                 .gender(worker.getGender())
-                .orders(worker.getOrders())
+                .orders(order)
                 .imageURL(worker.getImageURL())
                 .build();
     }
