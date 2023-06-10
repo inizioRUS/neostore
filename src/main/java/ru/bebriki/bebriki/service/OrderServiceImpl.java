@@ -63,7 +63,6 @@ public class OrderServiceImpl implements OrderService {
                 .date(orderDTO.getDate())
                 .items(orderDTO.getItems())
                 .workerId(orderDTO.getWorkerId())
-                .worker(worker)
                 .build();
     }
 

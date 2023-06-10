@@ -25,9 +25,9 @@ public class Order {
     @JoinColumn(name = "itemId", referencedColumnName = "id")
     private List<OrderItem> items;
 
-    @ManyToOne
-    @JoinColumn(name="workersId")
-    private Worker worker;
+//    @ManyToOne
+//    @JoinColumn(name="workersId")
+//    private Worker worker;
 
 //    public Order(Integer workerId, LocalDateTime date, List<OrderItem> items) {
 //        this.workerId = workerId;

@@ -45,7 +45,7 @@ public class Worker {
     @Column(name = "imageURL")
     private String imageURL;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "worker")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Order> orders;
 
 }
